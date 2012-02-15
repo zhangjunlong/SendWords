@@ -1,0 +1,103 @@
+@CHARSET "UTF-8";
+/**
+ * Copyright (c) Wenlong Zhang
+ *
+ * User interface elements of web pages
+ *
+ */
+table{
+	margin: 0 auto;
+    border-left: 1px solid #C1DAD7; 
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+th { 
+    font: bold 20px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    color: #4f6b72; 
+    border-right: 1px solid #C1DAD7; 
+    border-bottom: 1px solid #C1DAD7; 
+    border-top: 1px solid #C1DAD7; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    text-align:center; 
+    padding: 6px; 
+    background: #CAE8EA; 
+}
+
+td { 
+    font: 20px "Trebuchet MS", Verdana, Arial, Helvetica, sans-serif; 
+    letter-spacing: 2px; 
+    text-transform: uppercase; 
+    text-align:center; 
+    border-right: 1px solid #C1DAD7; 
+    border-bottom: 1px solid #C1DAD7; 
+    background: #fff; 
+    font-size:20px; 
+    padding: 1px; 
+    color: #4f6b72; 
+    min-width: 50px;
+}
+
+td input{ 
+    font-size:20px; 
+}
+
+.even_tr td{
+	background: #F5FAFA; 
+}
+
+.page_content{
+	height: 600px;
+	padding: 0 15px;
+}
+
+.product_item{
+	height: 50px;
+}
+
+.product_item p {
+    margin-top:2px; 
+    overflow:hidden;
+    zoom:1;
+}
+
+.product_item p span{
+    margin-right:20px;
+    display:inline-block;
+    float:left;
+}
+
+.product_search_form{
+    margin:0;
+}
+
+.product_info_input{
+    float:left;
+    margin-top:5px;
+}
+
+.product_search_form a{
+    margin-top:0;
+}
+
+.product_detail_info{
+	margin:0;
+	padding:10px 0;
+	overflow:hidden;
+	_zoom:1;
+	width:300px;
+    list-style:none;
+    margin:0 auto;
+}
+
+.product_detail_info li{
+	float:left;
+	width:150px;
+}
+
+.product_detail_info li label{
+	display:inline-block;
+	width:75px;
+	text-align: right;
+}

@@ -1,0 +1,86 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../common/js/jquery.js"></script>
+<script type="text/javascript" src="../common/js/jquery.pagination.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.0a4.1.js"></script>
+<script type="text/javascript" src="../common/js/HashMap.js"></script>
+<script type="text/javascript" src="js/order.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<link href="ui/style/jquery.mobile-1.0a4.1.css" rel="stylesheet" type="text/css" />
+<link href="ui/style/pagination.css" rel="stylesheet" type="text/css" />
+<link href="ui/style/ui.css" rel="stylesheet" type="text/css" />
+<title>订单列表</title>
+<script type="text/javascript">
+    $(document).ready(function(){
+        utils.userId = utils.getParameter("userId");
+        utils.userName = utils.getParameter("userName");
+	    $('#currentUserName').html(utils.userName);
+	    $('#currentUserName1').html(utils.userName);
+        order.orderType = 1;
+        order.searchProduct(null,3,0,'style');
+    });
+</script>
+</head>
+<body>
+    <div data-role="page" id="productListPage" data-back="false">
+        <div data-role="header">
+			<h1 id="currentUserName"></h1>
+        </div>
+        <div data-role="content" class="page_content">
+        	<input type="hidden" id="orderType" value="1"/>
+            <div data-role="fieldcontain" class="product_search_form">
+                <input type="number" max="9999999999999999" min="0" step="0"  class="product_info_input" style="width:150px;" name="productInfoContent" id="productInfoContent" data-inline="true"/>
+                <a href="javascript:order.searchProduct($('#productInfoContent').val(),1,0);" data-role="button" data-inline="true">订购</a>
+            </div>
+            
+            <hr/>
+            
+            <div style="text-align: right;overflow: auto;">
+	            <select name="productSeason" id="productSeason" onchange="javascript:order.searchProduct(null,3,0,'');">
+	                <option value="">全部波段</option>
+	            </select>
+	            
+	            <select name="productStyle" id="productStyle" onchange="javascript:order.searchProduct(null,3,0,'');">
+	                <option value="">全部款型</option>
+	            </select>
+	            
+	          </div>
+            
+            <hr/>
+            
+            <ul data-role="listview" data-inset="true" id="productList">
+            </ul>
+            
+            <div id="paginationDiv" class="pagination"></div>
+
+        </div>
+    </div>
+
+    <div id="productDetailPage" data-role="page" data-back-btn-text="返回">
+        <div data-role="header">
+			<h1 id="currentUserName1"></h1>
+        </div>
+        <div data-role="content" style="text-align: center;">
+              <img  id="productPicture" src="" height="170">
+		     
+		     <br/><br/><div id="productDetailInfo" class="product_item" style="text-align: center;"></div><br/>
+
+             <hr/>
+             
+             <table id="colorSizesCompositionsTable">
+                 <thead>
+                    <tr id="thead"></tr>
+                 </thead>
+                 <tbody id="tbody"></tbody>
+             </table>
+             
+             <hr/>
+             
+             <a href="#" onclick="javascript:order.orderProduct();" style="width: 120px;" data-role="button" data-rel="back" data-inline="true">保存</a>
+             <a href="#" id="deleteOrder" style="display:none;" onclick="javascript:order.deleteOrder(2);" style="width: 120px;" data-role="button" data-inline="true">删除订单</a>
+        </div>
+    </div>
+</body>
+</html>

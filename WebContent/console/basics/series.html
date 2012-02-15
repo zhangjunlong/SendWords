@@ -1,0 +1,108 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>系列 | Series</title>
+	<link href="../ui/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="../ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../../common/js/jquery.js"></script>
+	<script type="text/javascript" src="../../common/js/jquery.form.js"></script>
+	<script type="text/javascript" src="../../common/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="../../common/js/si.ui.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		// initSelectOptions();
+		showAll();
+		
+		bindAjaxFormValidation();
+	});
+	
+	function showAll() {
+		si.ui.showLoading();
+		
+		$.getJSON("../../series.json",function (data){
+			$('#data').empty();
+			$.each(data, function(index, obj) {
+				$('#data').append('<tr id="' + obj.id + '" onclick="update(this);"></tr>');
+				$('#'+obj.id).append('<td>' + obj.name + '</td>');
+				$('#'+obj.id).append('<td>' + obj.code + '</td>');
+			 });
+			
+			si.ui.closeLoading();
+		});
+	}
+	
+	function update(obj) {
+		var option = {
+			url : '../../series/'+obj.id+'.json',
+			callback : function (data) {
+				$('#id').val(data.id);
+				$('#name').val(data.name);
+				$('#code').val(data.code);
+				
+				if(null!==data.parentSeries)
+					$('#parent').val(data.parentSeries.id);
+				else
+					$('#parent').val('');
+				
+				$('#daoForm').attr('action','../../series/'+data.id+'.json');
+			}
+		};
+		
+		si.ui.dao.update(option);
+	}
+	
+	function initSelectOptions() {
+		// Init categories
+		$.getJSON('../../series.json',function(data) {
+			var items = [];
+			items.push('<option></option>');
+			$.each(data,function(index,category){
+				items.push('<option value="'+category.id+'">'+category.name+'</option>');
+				$('#parent').html(items.join(''));
+			});
+		});
+	}
+	</script>
+</head>
+<body>
+<div id="main" class="rimmed">
+	<h2>类别</h2>
+	<div id="dataList" class="rimmed floatLeft">
+	  	<div class="toolbar"><button onclick="si.ui.dao.create();">新建+</button></div>
+		<table class="data">
+			<thead>
+				<tr>
+					<th>系列名称</th>
+					<th>系列编码</th>
+				</tr>
+			</thead>
+			<tbody id="data">
+			
+			</tbody>
+			<tfoot>
+				<tr>
+					<td id="pageBar" colspan="2"></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+    <div id="operation" class="rimmed floatLeft hidden">
+		<h3 id="currentDaoOperation">新建</h3>
+      	<form id="daoForm" action="../../series.json" method="post">
+			<label for="name">系列名称</label><input id="name" name="name" class="required" /> <br/>
+			<label for="code">系列编码</label><input id="code" name="code" /> <br/>
+			<!-- 
+			<label for="parent">所属系列</label>
+			<select id="parent" name="parentCategory.id"></select>
+			<br/>
+			 -->
+			<button type="submit" value="保存">保存</button>
+			<button type="reset" value="放弃" onclick="si.ui.dao.cancel();">放弃</button>
+		</form>
+		<a id="del" onclick="si.ui.dao.del({url:'../../series/'+$('#id').val()+'.json'});" class="button delete">删除</a>
+	</div>
+</div>
+</body>
+</html>

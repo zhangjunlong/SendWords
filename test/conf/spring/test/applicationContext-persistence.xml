@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+				http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<context:annotation-config />
+	<aop:aspectj-autoproxy />
+	<!-- Annotation事务 -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
+		<property name="url" value="jdbc:hsqldb:mem:woms" />
+		<property name="username" value="sa" />
+		<property name="password" value="" />
+		<!--
+			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+			<property name="url"
+			value="jdbc:mysql://localhost:3306/woms_test?autoReconnect=true" />
+			<property name="username" value="root" /> <property name="password"
+			value="111111" />
+		-->
+	</bean>
+
+	<bean id="persistenceUnitManager"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath*:META-INF/persistence-test.xml</value>
+			</list>
+		</property>
+		<property name="dataSources">
+			<map>
+				<entry key="localDataSource" value-ref="dataSource" />
+			</map>
+		</property>
+		<property name="defaultDataSource" ref="dataSource" />
+	</bean>
+
+	<!-- JPA EntityManagerFactory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="persistenceUnitManager" ref="persistenceUnitManager" />
+		<property name="persistenceUnitName" value="womsTest" />
+	</bean>
+
+	<!--
+		Transaction manager for a single JPA EntityManagerFactory (alternative
+		to JTA)
+	-->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<!--
+		Instruct Spring to perform declarative transaction management
+		automatically on annotated classes.
+	--><!-- 
+	<tx:annotation-driven />
+	 -->
+	<!--
+		PostProcessors to perform resource injection according to the JPA
+		specification (@PersistenceContext, @PersistenceUnit).
+	-->
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<!--
+		PostProcessors to perform exception translation on @Repository classes
+		(from native exceptions such as JPA PersistenceExceptions to Spring's
+		DataAccessException hierarchy).
+	-->
+	<!--
+		<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"
+		/>
+	-->
+
+	<!--
+		Will automatically be transactional due to @Transactional.
+		EntityManager will be auto-injected due to @PersistenceContext.
+		PersistenceExceptions will be auto-translated due to @Repository.
+	-->
+
+	<aop:config>
+		<aop:pointcut id="serviceOperation"
+			expression="execution(* com.openthinks.woms..service..*Service.*(..))" />
+		<aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice" />
+	</aop:config>
+
+	<!--
+		the transactional advice (i.e. what 'happens'; see the <aop:advisor/>
+		bean below)
+	-->
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="create*" propagation="REQUIRED" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean id="genericDao" class="com.openthinks.dao.GenericJpaDaoBean">
+		<constructor-arg value="java.lang.Object"></constructor-arg>
+	</bean>
+
+</beans>
+

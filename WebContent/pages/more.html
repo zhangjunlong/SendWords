@@ -1,0 +1,89 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../common/js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.0a4.1.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<script type="text/javascript" src="js/order.js"></script>
+<link href="ui/style/jquery.mobile-1.0a4.1.css" rel="stylesheet" type="text/css" />
+<link href="ui/style/ui.css" rel="stylesheet" type="text/css" />
+<title>更多</title>
+<script type="text/javascript">
+	$(document).ready(function(){
+	    utils.userId = utils.getParameter("userId");
+        utils.userName = utils.getParameter("userName");
+	    $('#currentUserName').html(utils.userName);
+	    $('#currentUserName1').html(utils.userName);
+	    $('#currentUserName2').html(utils.userName);
+	});
+</script>
+</head>
+<body>
+    <div data-role="page" id="productListPage" data-back="false">
+        <div data-role="header">
+			<h1 id="currentUserName"></h1>
+        </div>
+        <div data-role="content" class="page_content">
+            <h2 style="padding: 1em 0;">更多</h2>
+            <ul data-role="listview" data-inset="true">
+                <li class="product_item">
+                    <a href="#orderTask" onclick="javascript:order.orderTask();" style="padding-left:50px;padding-top:0;padding-bottom:0;">
+                        <h2 style="padding: 1em 0;">任务详情</h2>
+                    </a>
+                </li>
+                <li class="product_item">
+                    <a href="#meetingPlan" style="padding-left:50px;padding-top:0;padding-bottom:0;">
+                        <h2 style="padding: 1em 0;">会务行程</h2>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+	<div id="orderTask" data-role="page" data-back-btn-text="返回" style="text-align: center;">
+        <div data-role="header">
+			<h1 id="currentUserName1"></h1>
+        </div>
+        <br/>
+        <h2>订货任务详情</h2>
+        <table>
+            <thead>
+               <tr id="thead"><th>任务内容</th><th>任务详情</th></tr>
+            </thead>
+            <tbody id="orderTaskContent">
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="meetingPlan" data-role="page" data-back-btn-text="返回" style="text-align: center;">
+        <div data-role="header">
+			<h1 id="currentUserName2"></h1>
+        </div>
+        <br/>
+        <h2>5月11日行程安排</h2>
+        <table>
+            <thead>
+               <tr id="thead"><th>时间</th><th>行程内容</th></tr>
+            </thead>
+            <tbody>
+               <tr id="td"><td>09:00 - 10:00</td><td>模特走秀</td></tr>
+               <tr id="td"><td>10:00 - 11:00</td><td>由订货会软件提供商统一组织培训</td></tr>
+               <tr id="td"><td>14:00 - 16:00</td><td>订购产品</td></tr>
+            </tbody>
+        </table>
+        <br/>
+        <h2>5月12日行程安排</h2>
+        <table>
+            <thead>
+               <tr id="thead"><th>时间</th><th>行程内容</th></tr>
+            </thead>
+            <tbody>
+               <tr id="td"><td>09:00 - 10:00</td><td>模特走秀</td></tr>
+               <tr id="td"><td>10:00 - 11:00</td><td>由订货会软件提供商统一组织培训</td></tr>
+               <tr id="td"><td>14:00 - 16:00</td><td>订购产品</td></tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

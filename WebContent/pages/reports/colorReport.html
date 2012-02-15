@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>颜色报表 | Color Report</title>
+	<script type="text/javascript" src="../../common/js/jquery.js"></script>
+	<script type="text/javascript" src="../../common/js/jquery.gchart.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		var data = [$.gchart.series('2004', [50, 40, 10,10]), 
+		            $.gchart.series('2005', [88.16, 1.61, 8.13])]; 
+		                 
+        $('#pieChart').gchart({title:'颜色报表',type: 'pie3D', series: data, legend: 'top', 
+            dataLabels: ['IE 90', 'Netscape', 'Firefox'], 
+            extension: {chdl: 'IE 2004|N 2004|FF 2004'}}); 
+         
+        
+	});
+	</script>
+</head>
+<body>
+	<h1>颜色分析</h1>
+	<div id="pieChart" style="width: 450px; height: 200px"></div>
+</body>
+</html>

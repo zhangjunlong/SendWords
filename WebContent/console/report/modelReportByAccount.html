@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Brand</title>
+	<link href="../ui/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="../ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../../common/js/jquery.js"></script>
+	<script type="text/javascript" src="../../common/js/jquery.form.js"></script>
+	<script type="text/javascript" src="../../common/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="../../common/js/si.ui.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			
+			show();
+		});
+
+		function show(acId) {
+			si.ui.showLoading();
+			
+			if(null==acId)
+				acId=-1;
+			
+			initSelectOptions();
+			
+			$('#data').empty();
+			$.getJSON('../../model-report/'+ acId +'.json', function(data) {
+
+				$.each(data, function(index, obj) {
+					$('#data').append('<tr id="' + index + '" "></tr>');
+					$('#'+index).append('<td>' + obj.accountName + '</td>');
+					$('#'+index).append('<td>' + obj.model + '</td>');
+					$('#'+index).append('<td>' + obj.productName + '</td>');
+					$('#'+index).append('<td>' + obj.price + '</td>');
+					$('#'+index).append('<td>' + obj.colorModelCount + '</td>');
+					$('#'+index).append('<td>' + obj.amount + '</td>');
+				});
+				
+				si.ui.closeLoading();
+			});
+		}
+		
+		function initSelectOptions() {
+			// Init accounts
+			$.getJSON('../../account.json', function(data) {
+				var items = [];
+				items.push('<option value="-1">所有门店</option>');
+				$.each(data, function(index, ac) {
+					items.push('<option value="'+ ac.id +'">' + ac.id+'('+ac.name + ')</option>');
+					$('#accountSel').html(items.join(''));
+				});
+			});
+		}
+	</script>
+</head>
+<body>
+<div id="main" class="rimmed">
+	<h2 class="dark">门店综合订货分析</h2>
+	<div id="dataList" class="rimmed floatLeft">
+	    <div class="querybar">
+				<label for="accountSel">门店账号</label><select id="accountSel" ></select>
+				<button id="searchbtn" onclick="show($('#accountSel').val());">分析</button>
+			</div>  
+    	<table class="data">
+			<thead>
+				<tr>
+					<th>门店</th>
+					<th>款号</th>
+					<th>商品名称</th>
+					<th>零售价</th>
+					<th>订货色数</th>
+					<th>订货金额</th>
+				</tr>
+			</thead>
+			<tbody id="data">
+			
+			</tbody>
+			<tfoot>
+				<tr>
+					<td id="pageBar" colspan="２"></td>
+				</tr>
+			</tfoot>
+		</table>    
+	</div>
+	<div id="operation" class="rimmed floatLeft hidden">	
+		<h3 id="currentDaoOperation">新建</h3>
+	</div>
+</div>
+</body>
+</html>

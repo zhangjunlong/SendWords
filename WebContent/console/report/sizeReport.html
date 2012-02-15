@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Brand</title>
+	<link href="../ui/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="../ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../../common/js/jquery.js"></script>
+	<script type="text/javascript" src="../../common/js/jquery.form.js"></script>
+	<script type="text/javascript" src="../../common/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="../../common/js/si.ui.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			show();
+		});
+
+		function show(acId) {
+			si.ui.showLoading();
+			
+			if(null==acId)
+				acId=-1;
+			
+			initSelectOptions();
+			
+			var candidate = $('#candidateSel').val();
+			$('#candidate').html(candidate);
+			$('#data').empty();
+			$.getJSON('../../size-report/'+ acId +'.json?name='+candidate, function(data) {
+
+				var previous=null;
+				$.each(data.sizeReportItems, function(index, obj) {
+					var id = obj.candidateId;
+					if(previous==null || id!=previous) {
+						$('#data').append('<tr id="' + id + '" "></tr>');
+						$('#'+id).append('<td>' + obj.candidate + '</td>');
+						previous = id;
+					}
+					
+					$('#thtr').append('<th>' + obj.size.name + '</th>');
+					$('#'+id).append('<td>' + obj.quantity + '</td>');
+					$('#thtr').append('<th>占比</th>');
+					$('#'+id).append('<td>' + obj.quantityRatio + '</td>');
+					$('#'+id).append('<td>' + obj.amount + '</td>');
+				});
+				
+				si.ui.closeLoading();
+			});
+		}
+		
+		function initSelectOptions() {
+			// Init accounts
+			$.getJSON('../../account.json', function(data) {
+				var items = [];
+				items.push('<option value="-1">所有(全部账号)</option>');
+				$.each(data, function(index, ac) {
+					items.push('<option value="'+ ac.id +'">' + ac.id+'('+ac.name + ')</option>');
+					$('#accountSel').html(items.join(''));
+				});
+			});
+		}
+	</script>
+</head>
+<body>
+<div id="main" class="rimmed">
+	<h2 class="dark">尺码分析</h2>
+	<div id="dataList" class="rimmed floatLeft">
+	    <div class="querybar">
+				<label for="accountSel" class="querybarElement">门店账号</label><select id="accountSel" ></select>
+				<label for="candidateSel">属性</label>
+				<select id="candidateSel">
+					<option value="category">类别</option>
+					<option value="series">系列</option>
+					<option value="style">款式</option>
+				</select>
+				<button id="searchbtn" onclick="show($('#accountSel').val());">分析</button>
+			</div>  
+    	<table class="data">
+			<thead>
+				<tr id="thtr">
+					<th id="candidate">所选属性</th>
+					<!-- 
+					<th>尺码</th>
+					<th>数量</th>
+					<th>占比</th>
+					<th>总数</th>
+					 -->
+				</tr>
+			</thead>
+			<tbody id="data">
+			
+			</tbody>
+			<tfoot>
+				<tr>
+					<td id="pageBar" colspan="２"></td>
+				</tr>
+			</tfoot>
+		</table>    
+	</div>
+	<div id="operation" class="rimmed floatLeft hidden">	
+		<h3 id="currentDaoOperation">条件选择</h3>
+	</div>
+</div>
+</body>
+</html>

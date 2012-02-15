@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.jqplot.js"></script>
+    <script type="text/javascript" src="../common/js/jqplot.pieRenderer.js"></script>
+	<script type="text/javascript" src="js/jquery.mobile-1.0a4.1.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+    <script type="text/javascript" src="js/report.js"></script>
+	<link href="ui/style/jquery.mobile-1.0a4.1.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../common/css/jquery.jqplot.css" />
+	<title>订货报表</title>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    utils.userId = utils.getParameter("userId");
+	        utils.userName = utils.getParameter("userName");
+		    $('#currentUserName').html(utils.userName);
+		    $('#currentUserName1').html(utils.userName);
+		});
+	</script>
+</head>
+<body>
+    <div data-role="page" id="productListPage" data-back="false">
+        <div data-role="header">
+			<h1 id="currentUserName"></h1>
+        </div>
+        <div data-role="content" class="page_content">
+            <h2 style="padding: 1em 0;">订货报表</h2>
+            <ul data-role="listview" data-inset="true">
+                <li class="product_item">
+                    <a href="#reportsDetailPage" onclick="javascript:report.colorReport();" style="padding-left:50px;padding-top:0;padding-bottom:0;">
+                        <h2 style="padding: 1em 0;">颜色报表</h2>
+                    </a>
+                </li>
+                <li class="product_item">
+                    <a href="#reportsDetailPage" onclick="javascript:report.seasonReport();" style="padding-left:50px;padding-top:0;padding-bottom:0;">
+                        <h2 style="padding: 1em 0;">波段报表</h2>
+                    </a>
+                </li>
+                <li class="product_item">
+                    <a href="#reportsDetailPage" onclick="javascript:report.styleReport();" style="padding-left:50px;padding-top:0;padding-bottom:0;">
+                        <h2 style="padding: 1em 0;">款型报表</h2>
+                    </a>
+                </li>
+                <li class="product_item">
+                    <a href="#reportsDetailPage" onclick="javascript:report.categoryReport();" style="padding-left:50px;padding-top:0;padding-bottom:0;">
+                        <h2 style="padding: 1em 0;">大类报表</h2>
+                    </a>
+                </li>
+                <li class="product_item">
+                    <a href="#reportsDetailPage" onclick="javascript:report.seriesReport();" style="padding-left:50px;padding-top:0;padding-bottom:0;">
+                        <h2 style="padding: 1em 0;">系列报表</h2>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="reportsDetailPage" data-role="page" data-back-btn-text="返回">
+        <div data-role="header">
+			<h1 id="currentUserName1"></h1>
+        </div>
+        <div id="reportsDetailInfo" data-role="content" style="text-align: center;">
+            <div id="chart1" class="jqPlot jqplot-target" style="height: 250px; width: 350px; position: relative; "></div>
+            <div id="chart2" class="jqPlot jqplot-target" style="height: 250px; width: 350px; position: relative; "></div>
+        </div> 
+    </div>
+</body>
+</html>

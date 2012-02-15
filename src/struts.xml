@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+	"http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<constant name="struts.custom.i18n.resources" value="resources" />
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.i18n.encoding" value="UTF-8" />
+
+	<!-- Overwrite Convention -->
+	<constant name="struts.convention.action.suffix" value="Controller" />
+	<constant name="struts.convention.action.mapAllMatches" value="true" />
+	<constant name="struts.convention.default.parent.package"
+		value="rest-ext" />
+	<constant name="struts.convention.result.path" value="/pages" />
+	<constant name="struts.convention.package.locators" value="rest" />
+
+	<!-- Authentication Interceptor -->
+	<package name="rest-ext" extends="rest-default">
+		<!-- <interceptors>
+			<interceptor name="authentication"
+				class="com.openthinks.woms.interceptor.AuthenticationInterceptor" />
+			<interceptor-stack name="authenticationStack">
+				<interceptor-ref name="authentication" />
+				<interceptor-ref name="defaultStack" />
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="authenticationStack" /> -->
+
+		<global-results>
+			<result name="login">/index.jsp</result>
+		</global-results>
+	</package>
+</struts>

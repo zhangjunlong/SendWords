@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>尺码 | Size</title>
+	<link href="../ui/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="../ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../../common/js/jquery.js"></script>
+	<script type="text/javascript" src="../../common/js/jquery.form.js"></script>
+	<script type="text/javascript" src="../../common/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="../../common/js/si.ui.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function () {
+		showAll();
+		
+		bindAjaxFormValidation();
+	});
+	
+	function showAll() {
+		si.ui.showLoading();
+		
+		$.getJSON("../../size.json",function (data){
+			$('#data').empty();
+			$.each(data, function(index, obj) {
+				$('#data').append('<tr id="' + obj.id + '" onclick="update(this);"></tr>');
+				$('#'+obj.id).append('<td>' + obj.name + '</td>');
+				$('#'+obj.id).append('<td>' + obj.code + '</td>');
+				$('#'+obj.id).append('<td>' + obj.sortId + '</td>');
+			});
+			
+			si.ui.closeLoading();
+		});
+	}
+	
+	function update(obj) {
+		var option = {
+			url : "../../size/"+obj.id+".json",
+			callback : function (data) {
+				$('#id').val(data.id);
+				$('#name').val(data.name);
+				$('#code').val(data.code);
+				$("#sortId").val(data.sortId);
+				$('#remark').val(data.remark);					
+					
+				$('#daoForm').attr('action','../../size/'+data.id+'.json');
+			}
+		};
+		
+		si.ui.dao.update(option);
+	}
+	</script>
+</head>
+<body>
+<div id="main" class="rimmed">
+	<h2>尺码</h2>
+	<div id="dataList" class="rimmed floatLeft">
+		<div class="toolbar"><button onclick="si.ui.dao.create();">新建+</button></div>
+		<table class="data">
+			<thead>
+				<tr>
+					<th>尺码名称</th>
+					<th>尺码编码</th>
+					<th>排列序号</th>
+				</tr>
+			</thead>
+			<tbody id="data">
+			
+			</tbody>
+			<tfoot>
+				<tr>
+					<td id="pageBar" colspan="2"></td>
+				</tr>
+			</tfoot>
+		</table>
+	</div>
+    <div id="operation" class="rimmed floatLeft hidden">
+       	<h3 id="currentDaoOperation">新建</h3>
+       	<form id="daoForm" action="../../size.json" method="post">
+			<label for="name">尺码名称</label><input id="name" name="name" class="required" /><br/>
+			<label for="code">尺码编码</label><input id="code" name="code" /><br/>
+			<label for="sortId">排列序号</label><input id="sortId" name="sortId" class="required"/><br/>
+			<label for="remark">备注</label><input id="remark" name="remark" /> <br/>
+			<button type="submit" value="保存">保存</button>
+			<button type="reset" value="放弃" onclick="si.ui.dao.cancel();">放弃</button>
+		</form>
+		<a id="del" onclick="si.ui.dao.del({url:'../../size/'+$('#id').val()+'.json'});" class="button delete">删除</a>
+	</div>
+</div>
+</body>
+</html>

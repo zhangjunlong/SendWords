@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+				http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd">
+
+	<!-- JNDI DataSource
+	<bean id="dataSource" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName" value="java:comp/env/jdbc/woms" />
+	</bean>
+	 -->
+
+	<!--
+	<jee:jndi-lookup id="dataSource" jndi-name="jdbc/woms" />
+	--> 
+
+	<!-- Data source type of javax.sql.DataSource	 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/woms?autoReconnect=true" />
+		<property name="username" value="root" />
+		<property name="password" value="think@si" />
+	</bean>
+
+	 
+	<!-- JPA EntityManagerFactory -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!--
+			<property name="loadTimeWeaver"> <bean
+			class="org.springframework.instrument.classloading.ReflectiveLoadTimeWeaver"
+			/> <bean
+			class="org.springframework.instrument.classloading.SimpleLoadTimeWeaver"/>
+			</property>
+		-->
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			</bean>
+		</property>
+	</bean>
+	
+	<!--
+		Transaction manager for a single JPA EntityManagerFactory (alternative
+		to JTA)
+	-->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+	<!--
+		Instruct Spring to perform declarative transaction management
+		automatically on annotated classes.
+	--><!-- 
+	<tx:annotation-driven />
+	 -->
+	<!--
+		PostProcessors to perform resource injection according to the JPA
+		specification (@PersistenceContext, @PersistenceUnit).
+	-->
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<!--
+		PostProcessors to perform exception translation on @Repository classes
+		(from native exceptions such as JPA PersistenceExceptions to Spring's
+		DataAccessException hierarchy).
+	-->
+	<!--
+		<bean
+		class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"
+		/>
+	-->
+
+	<!--
+		Will automatically be transactional due to @Transactional.
+		EntityManager will be auto-injected due to @PersistenceContext.
+		PersistenceExceptions will be auto-translated due to @Repository.
+	-->
+
+	<aop:config>
+		<aop:pointcut id="serviceOperation"
+			expression="execution(* com.openthinks.woms..service..*Service.*(..))" />
+		<aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice" />
+	</aop:config>
+
+	<!--
+		the transactional advice (i.e. what 'happens'; see the <aop:advisor/>
+		bean below)
+	-->
+	<tx:advice id="txAdvice">
+		<tx:attributes>
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<bean id="genericDao" class="com.openthinks.dao.GenericJpaDaoBean">
+		<constructor-arg value="java.lang.Object"></constructor-arg>
+	</bean>
+
+</beans>
+

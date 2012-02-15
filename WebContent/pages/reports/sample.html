@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>颜色报表 | Color Report</title>
+	<!--[if IE]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]-->
+	<script language="javascript" type="text/javascript" src="../../common/js/jquery.js"></script>
+	<script language="javascript" type="text/javascript" src="../../common/js/jquery.jqplot.js"></script>
+	<script language="javascript" type="text/javascript" src="../../common/js/jqplot.pieRenderer.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../common/css/jquery.jqplot.css" />
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$.jqplot.config.enablePlugins = true;
+			
+			line1 = [['frogs',3], ['buzzards',7], ['deer',2.5], ['turkeys',6], ['moles',5], ['ground hogs',4]];
+			
+			plot1 = $.jqplot('chart1', [line1], {
+			    title: 'Default Pie Chart',
+			    seriesDefaults:{renderer:$.jqplot.PieRenderer}
+			});
+			
+			plot2 = $.jqplot('chart2', [line1], {
+			    title: 'Pie Chart with Legend and sliceMargin',
+			    seriesDefaults:{renderer:$.jqplot.PieRenderer, rendererOptions:{sliceMargin:8}},
+			    legend:{show:true}
+			});
+		
+		
+	});
+	</script>
+</head>
+<body>
+	<div class="jqPlot jqplot-target" id="chart1" style="height: 340px; width: 540px; position: relative; ">
+	</div>
+
+	<div class="jqPlot jqplot-target" id="chart2" style="height: 340px; width: 540px; position: relative; ">
+	</div>
+</body>
+</html>

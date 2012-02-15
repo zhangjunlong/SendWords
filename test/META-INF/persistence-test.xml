@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd">
+	<persistence-unit name="womsTest" transaction-type="RESOURCE_LOCAL">
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		
+		<class>com.openthinks.woms.account.Account</class>
+		<class>com.openthinks.woms.account.AccountGroup</class>
+		<class>com.openthinks.woms.account.OrderTask</class>
+		<class>com.openthinks.woms.product.Product</class>
+		<class>com.openthinks.woms.product.ProductResult</class>
+		<class>com.openthinks.woms.product.Brand</class>
+		<class>com.openthinks.woms.message.Message</class>
+		<class>com.openthinks.woms.product.Category</class>
+		<class>com.openthinks.woms.product.Season</class>
+		<class>com.openthinks.woms.product.Size</class>
+		<class>com.openthinks.woms.product.Color</class>
+		<class>com.openthinks.woms.product.ColorSizesComposition</class>
+		<class>com.openthinks.woms.order.OrderForm</class>
+		<class>com.openthinks.woms.product.Style</class>
+		<class>com.openthinks.woms.product.Series</class>
+
+		<properties>
+			<!-- Data source -->
+			<!-- 
+			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+			<property name="javax.persistence.jdbc.url"
+				value="jdbc:mysql://localhost:3306/woms_test?autoReconnect=true" />
+			<property name="javax.persistence.jdbc.user" value="root" />
+			<property name="javax.persistence.jdbc.password" value="111111" />
+			
+			<property name="javax.persistence.jdbc.read-connections.min"
+				value="1" />
+			<property name="javax.persistence.jdbc.write-connections.min"
+				value="1" />
+			<property name="javax.persistence.jdbc.batch-writing" value="JDBC" />
+			 -->
+			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />
+			<property name="hibernate.cache.provider_class" value="org.hibernate.cache.EhCacheProvider" />
+			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<property name="hibernate.show_sql" value="true" />
+			<property name="hibernate.cache.use_second_level_cache"
+				value="true" />
+			<property name="hibernate.cache.use_query_cache" value="false" />
+		</properties>
+	</persistence-unit>
+</persistence>

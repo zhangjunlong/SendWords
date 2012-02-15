@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+				http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+				http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
+	default-autowire="byName">
+
+	<!-- MVC Controllers -->
+
+	<bean id="productController" class="com.openthinks.woms.product.rest.ProductController"
+		scope="prototype" />
+
+	<bean id="productFindController"
+		class="com.openthinks.woms.product.rest.ProductFindController"
+		scope="prototype" />
+
+	<bean id="categoryController" class="com.openthinks.woms.product.rest.CategoryController"
+		scope="prototype" />
+
+	<bean id="seriesController" class="com.openthinks.woms.product.rest.SeriesController"
+		scope="prototype" />
+
+	<bean id="styleController" class="com.openthinks.woms.product.rest.StyleController"
+		scope="prototype" />
+
+	<bean id="brandController" class="com.openthinks.woms.product.rest.BrandController"
+		scope="prototype" />
+
+	<bean id="colorController" class="com.openthinks.woms.product.rest.ColorController"
+		scope="prototype" />
+
+	<bean id="sizeController" class="com.openthinks.woms.product.rest.SizeController"
+		scope="prototype" />
+		
+	<bean id="seasonController" class="com.openthinks.woms.product.rest.SeasonController"
+		scope="prototype" />
+
+	<bean id="excelController" class="com.openthinks.woms.product.rest.ExcelController"
+		scope="prototype" />
+
+	<bean id="rankController" class="com.openthinks.woms.product.rest.RankController"
+		scope="prototype" />
+
+
+	<!-- MVC Model -->
+
+	<bean id="productService" class="com.openthinks.woms.product.service.ProductServiceImpl" />
+
+	<bean id="simplifiedProductService"
+		class="com.openthinks.woms.product.service.SimplifiedProductServiceImpl" />
+
+	<bean id="brandService" class="com.openthinks.woms.product.service.BrandServiceImpl" />
+
+	<bean id="categoryService" class="com.openthinks.woms.product.service.CategoryServiceImpl" />
+
+	<bean id="seriesService" class="com.openthinks.woms.product.service.SeriesServiceImpl" />
+
+    <bean id="styleService" class="com.openthinks.woms.product.service.StyleServiceImpl" />
+    
+    <bean id="seasonService" class="com.openthinks.woms.product.service.SeasonServiceImpl" />
+
+	<bean id="colorService" class="com.openthinks.woms.product.service.ColorServiceImpl" />
+
+	<bean id="sizeService" class="com.openthinks.woms.product.service.SizeServiceImpl" />
+
+	<bean id="productDao" class="com.openthinks.woms.product.dao.ProductDaoJpaImpl" />
+
+	<bean id="simplifiedProductDao"
+		class="com.openthinks.woms.product.dao.SimplifiedProductDaoJpaImpl" />
+
+	<bean id="brandDao" class="com.openthinks.woms.product.dao.BrandDaoJpaImpl" />
+
+	<bean id="categoryDao" class="com.openthinks.woms.product.dao.CategoryDaoJpaImpl" />
+
+	<bean id="seriesDao" class="com.openthinks.woms.product.dao.SeriesDaoJpaImpl" />
+
+    <bean id="styleDao" class="com.openthinks.woms.product.dao.StyleDaoJpaImpl" />
+    
+    <bean id="seasonDao" class="com.openthinks.woms.product.dao.SeasonDaoJpaImpl" />
+
+	<bean id="colorDao" class="com.openthinks.woms.product.dao.ColorDaoJpaImpl" />
+
+	<bean id="sizeDao" class="com.openthinks.woms.product.dao.SizeDaoJpaImpl" />
+
+	<bean id="colorSizesCompositionDao"
+		class="com.openthinks.woms.product.dao.ColorSizesCompositionDaoImpl" />
+
+</beans>

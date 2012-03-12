@@ -55,4 +55,14 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description>Load System Cofiguration at startup</description>
+    <display-name>InitiateServlet</display-name>
+    <servlet-name>InitiateServlet</servlet-name>
+    <servlet-class>com.openthinks.woms.system.InitiateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InitiateServlet</servlet-name>
+    <url-pattern>/InitiateServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

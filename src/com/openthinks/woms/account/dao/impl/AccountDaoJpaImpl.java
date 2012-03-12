@@ -3,6 +3,7 @@ package com.openthinks.woms.account.dao.impl;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 
 import com.openthinks.dao.GenericJpaDaoBean;
@@ -51,6 +52,10 @@ public class AccountDaoJpaImpl extends GenericJpaDaoBean<Account, Integer>
 		Query query = em.createQuery(ql);
 		query.setParameter(0, userId);
 
-		return (Account) query.getSingleResult();
+		try {
+			return (Account) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
+		}
 	}
 }

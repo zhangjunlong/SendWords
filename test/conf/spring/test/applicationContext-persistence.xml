@@ -16,7 +16,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 
 		<property name="driverClassName" value="org.hsqldb.jdbcDriver" />
-		<property name="url" value="jdbc:hsqldb:mem:woms" />
+		<property name="url" value="jdbc:hsqldb:mem:sendwordsdb" />
 		<property name="username" value="sa" />
 		<property name="password" value="" />
 		<!--

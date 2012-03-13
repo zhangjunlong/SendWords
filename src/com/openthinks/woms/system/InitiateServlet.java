@@ -41,13 +41,10 @@ public class InitiateServlet extends HttpServlet {
 		String un = pr.getProperties("admin.username");
 		String pw = pr.getProperties("admin.password");
 
-		AccountGroup accGroup = new AccountGroup();
-		accGroup.setName("admin");
-
 		Account defAcc = new Account();
 		defAcc.setName(un);
 		defAcc.setPassword(pw);
-		defAcc.setAccountGroup(accGroup);
+
 		try {
 			WebApplicationContext ctx = WebApplicationContextUtils
 					.getRequiredWebApplicationContext(config

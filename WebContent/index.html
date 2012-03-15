@@ -28,13 +28,13 @@
 						},
 						success : function(data) {
 							si.ui.closeLoading();
-							alert(data);
+							
 							if (data.status == 'success') {
 								$("#footer").slideUp("1000");
 								$("#sign").fadeOut("slow");
 								
 								if (data.description == 'client')
-									window.location = 'smart/orderProduct.html?userId='+data.extend.id+'&userName='+data.extend.userId;
+									window.location = 'pages/profile.html?userId='+data.extend.id+'&userName='+data.extend.userId;
 								else
 									window.location = 'console/';
 							} else {

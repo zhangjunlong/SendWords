@@ -27,8 +27,6 @@ public class Account {
 
 	private String password;
 
-	private Profile profile;
-
 	@Column(length = 20)
 	private String role;
 
@@ -70,14 +68,6 @@ public class Account {
 
 	public void setRole(String role) {
 		this.role = role;
-	}
-
-	public Profile getProfile() {
-		return profile;
-	}
-
-	public void setProfile(Profile profile) {
-		this.profile = profile;
 	}
 
 }

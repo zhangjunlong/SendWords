@@ -10,19 +10,9 @@
 		
 		<class>com.openthinks.woms.account.Account</class>
 		<class>com.openthinks.woms.account.AccountGroup</class>
-		<class>com.openthinks.woms.account.OrderTask</class>
-		<class>com.openthinks.woms.product.Product</class>
-		<class>com.openthinks.woms.product.ProductResult</class>
-		<class>com.openthinks.woms.product.Brand</class>
+		<class>com.openthinks.woms.profile.Person</class>
 		<class>com.openthinks.woms.message.Message</class>
-		<class>com.openthinks.woms.product.Category</class>
-		<class>com.openthinks.woms.product.Season</class>
-		<class>com.openthinks.woms.product.Size</class>
-		<class>com.openthinks.woms.product.Color</class>
-		<class>com.openthinks.woms.product.ColorSizesComposition</class>
-		<class>com.openthinks.woms.order.OrderForm</class>
-		<class>com.openthinks.woms.product.Style</class>
-		<class>com.openthinks.woms.product.Series</class>
+		<class>com.openthinks.woms.profile.Class</class>
 
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect" />

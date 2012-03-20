@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="../common/js/jquery.js"></script>
+<script type="text/javascript" src="../common/js/jquery.pagination.js"></script>
+<script type="text/javascript" src="js/jquery.mobile-1.0a4.1.js"></script>
+<script type="text/javascript" src="js/jquery.tagsinput.js"></script>
+<script type="text/javascript" src="../common/js/HashMap.js"></script>
+<script type="text/javascript" src="js/order.js"></script>
+<script type="text/javascript" src="js/utils.js"></script>
+<link href="ui/style/jquery.mobile-1.0a4.1.css" rel="stylesheet" type="text/css" />
+<link href="ui/style/jquery.tagsinput.css" rel="stylesheet" type="text/css" />
+<link href="ui/style/pagination.css" rel="stylesheet" type="text/css" />
+<link href="ui/style/ui.css" rel="stylesheet" type="text/css" />
+<title>Insert title here</title>
+<script type="text/javascript">
+	$(document).ready(function(){
+        $('#notepadContentTags').tagsInput();
+        utils.userId = utils.getParameter("userId");
+        utils.userName = utils.getParameter("userName");
+	    $('title').html(utils.userName);
+	    
+	    $("#footer").slideUp("1000");
+		$("#sign").fadeOut("slow");
+	});
+</script>
+</head>
+<body>
+<div id="main" class="rimmed">
+	<div class="metal">
+	<h1> 毕业寄语 </h1>
+	<h3><em> - 前方的路通向远方，我们的回忆比路长 ...</em></h3>
+	</div>
+	<p>
+		<span id="err" class="err"></span><br/>
+	</p>
+	<div id="sign" class="rimmed">
+		<form id="signForm" method="GET">
+			<label for="uid">用户 </label><input id="uid" type="text" name="userId" tabindex="1"/><br/><br/>
+			<label for="pwd">密码 </label><input id="pwd" type="password" name="password" tabindex="2"/><br/><br/>
+			<button type="submit" value="登录" >登录</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="reset" value="清除" >清除</button>
+		</form>
+	</div>
+</div>
+<div id="footer" class="hidden">&nbsp;&nbsp;&copy; Smart Interactive&trade; System Technology</div>
+</body>
+</html>

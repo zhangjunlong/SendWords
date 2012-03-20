@@ -1,14 +1,12 @@
 package com.openthinks.woms.account;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.Transient;
+
+import com.openthinks.woms.profile.Profile;
 
 /**
  * Account
@@ -20,29 +18,21 @@ import javax.persistence.Transient;
 public class Account {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
+	private long id;
 
 	@Column(unique = true)
 	private String userId;
-
-	private String name;
 
 	private String description;
 
 	private String password;
 
-	private String targetAmount;
+	private Profile profile;
 
 	@Column(length = 20)
 	private String role;
 
-	@ManyToOne
-	private AccountGroup accountGroup;
-
-	@Transient
-	private List<Object> statisticsTask;
-
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -56,14 +46,6 @@ public class Account {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public String getDescription() {
@@ -90,28 +72,12 @@ public class Account {
 		this.role = role;
 	}
 
-	public AccountGroup getAccountGroup() {
-		return accountGroup;
+	public Profile getProfile() {
+		return profile;
 	}
 
-	public void setAccountGroup(AccountGroup accountGroup) {
-		this.accountGroup = accountGroup;
-	}
-
-	public String getTargetAmount() {
-		return targetAmount;
-	}
-
-	public void setTargetAmount(String targetAmount) {
-		this.targetAmount = targetAmount;
-	}
-
-	public List<Object> getStatisticsTask() {
-		return statisticsTask;
-	}
-
-	public void setStatisticsTask(List<Object> statisticsTask) {
-		this.statisticsTask = statisticsTask;
+	public void setProfile(Profile profile) {
+		this.profile = profile;
 	}
 
 }

@@ -1,7 +1,6 @@
 package com.openthinks.woms.account.service;
 
 import java.util.Collection;
-import java.util.List;
 
 import com.openthinks.woms.account.Account;
 
@@ -26,7 +25,7 @@ public interface AccountService {
 	 * @return
 	 * @throws Exception
 	 */
-	Account find(int id) throws Exception;
+	Account find(long id) throws Exception;
 
 	/**
 	 * Find out all accounts
@@ -39,9 +38,7 @@ public interface AccountService {
 
 	void update(Account account) throws Exception;
 
-	void delete(int id) throws Exception;
-
-	List<Object> accountTask(int accountId) throws Exception;
+	void delete(long id) throws Exception;
 
 	Account find(String userId) throws Exception;
 

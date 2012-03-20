@@ -16,7 +16,7 @@ import com.openthinks.woms.account.dao.AccountDao;
  * @author Zhang Junlong
  * 
  */
-public class AccountDaoJpaImpl extends GenericJpaDaoBean<Account, Integer>
+public class AccountDaoJpaImpl extends GenericJpaDaoBean<Account, Long>
 		implements AccountDao {
 
 	public AccountDaoJpaImpl() {

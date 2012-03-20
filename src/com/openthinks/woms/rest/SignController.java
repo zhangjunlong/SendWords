@@ -62,7 +62,6 @@ public class SignController extends ValidationAwareSupport implements
 		if (account != null) {
 
 			session.put("id", account.getId());
-			session.put("name", account.getName());
 			session.put("role", account.getRole());
 			if (account.getRole().equals("admin"))
 				session.put("roleName", "管理员");

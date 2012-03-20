@@ -39,7 +39,4 @@
 
 	<bean id="accountDao" class="com.openthinks.woms.account.dao.impl.AccountDaoJpaImpl" />
 
-	<bean id="orderTaskDao"
-		class="com.openthinks.woms.account.dao.impl.OrderTaskDaoJpaImpl" />
-
 </beans>

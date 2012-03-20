@@ -87,16 +87,6 @@ public class AccountController extends GenericRestfulController {
 		return "success";
 	}
 
-	public HttpHeaders accountTask() {
-		try {
-			model = accountService.find(id);
-			model.setStatisticsTask(accountService.accountTask(id));
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return new DefaultHttpHeaders("success").setLocationId(model.getId());
-	}
-
 	@Override
 	public Object getModel() {
 		if (message != null)

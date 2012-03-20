@@ -11,7 +11,7 @@ import com.openthinks.woms.account.Account;
  * @author Zhang Junlong
  * 
  */
-public interface AccountDao extends GenericDao<Account, Integer> {
+public interface AccountDao extends GenericDao<Account, Long> {
 
 	/**
 	 * Read user by User ID

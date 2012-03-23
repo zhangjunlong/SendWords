@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>新用户注册</title>
+	<link href="generic/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="generic/ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="generic/js/jquery.js"></script>
+	<script type="text/javascript" src="generic/js/jquery.form.js"></script>
+	<script type="text/javascript" src="generic/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="generic/ui/js/si.ui.js"></script>
+	<script type="text/javascript" src="generic/js/si.common.js"></script>
+	<script type="text/javascript">
+		$(document).ready(
+				function() {
+					bindAjaxFormValidation();
+					
+					$("#sign").fadeIn("slow");
+					$("#footer").slideDown("1000");
+					$("#uid").focus();
+
+					var options = {
+						dataType : 'json',
+						beforeSerialize : function(form, options) {
+							options.url = 'sign/0/in.json';
+						},
+						beforeSubmit : function() {
+							si.ui.showLoading();
+							if($("#pwd").val()!=$("rePwd").val()) {
+								$("#err").html("两次输入密码不匹配");
+							}
+							$('#registerForm').attr('action', 'sign/0/in.json');
+
+							return true;
+						},
+						success : function(data) {
+							si.ui.closeLoading();
+							
+							if (data.status == 'success') {
+								$("#footer").slideUp("1000");
+								$("#sign").fadeOut("slow");
+								
+								if (data.description == 'client')
+									window.location = 'pages/profile.html?userId='+data.extend.id+'&userName='+data.extend.userId;
+								else
+									window.location = 'console/';
+							} else {
+								$('#err').html(data.description);
+								$('#err').show();
+							}
+
+						}
+					}
+
+					$('#registerForm').submit(function() {
+						$(this).ajaxSubmit(options);
+						return false;
+					});
+				});
+	</script>
+</head>
+<body>
+<div id="top" class="blueBar"><a href="index.html">主页</a></div>
+<div id="main" class="rimmed">
+	<div>
+	<h1> 欢迎注册 </h1>
+	<h3><em> - 注册后即可给您的同学写下真挚的寄语 ... ...</em></h3>
+	</div>
+	<div id="sign" class="rimmed hidden">
+		<p>
+			<span id="err" class="error msg"></span>
+		</p>
+		<form id="registerForm" method="POST">
+			<label for="uid">用户名 </label><input id="uid" type="text" name="userId" tabindex="1" class="email required"/>
+			<label for="uid" class="error">请输入一个电子邮件地址</label>
+			<br/><br/>
+			<label for="pwd">密码 </label><input id="pwd" type="password" name="password" tabindex="2" class="required"/><br/><br/>
+			<label for="rePwd">重复密码</label><input id="pwd" type="password" name="password" tabindex="3" class="required"/><br/><br/>
+			<button type="submit" value="注册" >注册</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<button type="reset" value="取消" onclick="history.back();">取消</button>
+		</form>
+	</div>
+</div>
+<div id="footer" class="hidden">&nbsp;&nbsp;&copy; Smart Interactive&trade; System Technology</div>
+</body>
+</html>

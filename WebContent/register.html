@@ -22,30 +22,32 @@
 					var options = {
 						dataType : 'json',
 						beforeSerialize : function(form, options) {
-							options.url = 'sign/0/in.json';
+							options.url = 'sign/0/up.json';
 						},
 						beforeSubmit : function() {
 							si.ui.showLoading();
-							if($("#pwd").val()!=$("rePwd").val()) {
+							if($("#pwd").val()!=$("#rePwd").val()) {
 								$("#err").html("两次输入密码不匹配");
+								si.ui.closeLoading();
+								return false;
 							}
-							$('#registerForm').attr('action', 'sign/0/in.json');
+							else{
+								$('#err').html('');
+								$('#registerForm').attr('action', 'sign/0/in.json');
 
-							return true;
+								return true;
+							}
 						},
-						success : function(data) {
+						success : function(data,httpStatus) {
 							si.ui.closeLoading();
 							
-							if (data.status == 'success') {
+							if (httpStatus == '201') {
 								$("#footer").slideUp("1000");
 								$("#sign").fadeOut("slow");
 								
-								if (data.description == 'client')
-									window.location = 'pages/profile.html?userId='+data.extend.id+'&userName='+data.extend.userId;
-								else
-									window.location = 'console/';
+								window.location = '/';
 							} else {
-								$('#err').html(data.description);
+								$('#err').html('注册失败');
 								$('#err').show();
 							}
 
@@ -57,6 +59,16 @@
 						return false;
 					});
 				});
+		
+		var checkAvailiable = function() {
+			var userId = $("#uid").val();
+			si.ui.showLoading("uidTip");
+			$('#submitBtn').attr('disabled','disabled');
+			$.get("sign/0/check.json?userId="+userId,function(data){
+				$("#uidTip").html(data.description);
+				$('#submitBtn').attr('disabled','');
+			});
+		}
 	</script>
 </head>
 <body>
@@ -71,12 +83,12 @@
 			<span id="err" class="error msg"></span>
 		</p>
 		<form id="registerForm" method="POST">
-			<label for="uid">用户名 </label><input id="uid" type="text" name="userId" tabindex="1" class="email required"/>
-			<label for="uid" class="error">请输入一个电子邮件地址</label>
+			<label for="uid">用户名 </label><input id="uid" type="text" name="userId" tabindex="1" class="email required" onkeyup="checkAvailiable();"/>
+			<div id ="uidTip" class="tip">请输入一个电子邮件地址</div>
 			<br/><br/>
 			<label for="pwd">密码 </label><input id="pwd" type="password" name="password" tabindex="2" class="required"/><br/><br/>
-			<label for="rePwd">重复密码</label><input id="pwd" type="password" name="password" tabindex="3" class="required"/><br/><br/>
-			<button type="submit" value="注册" >注册</button>&nbsp;&nbsp;&nbsp;&nbsp;
+			<label for="rePwd">重复密码</label><input id="rePwd" type="password" name="password" tabindex="3" class="required"/><br/><br/>
+			<button id="submitBtn" type="submit" value="注册" >注册</button>&nbsp;&nbsp;&nbsp;&nbsp;
 			<button type="reset" value="取消" onclick="history.back();">取消</button>
 		</form>
 	</div>

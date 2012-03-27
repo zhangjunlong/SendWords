@@ -92,6 +92,7 @@ label {display: inline-block;vertical-align:middle;text-align:right;width:65px}
 .copyright {font:15px serif,sans-serif,arial;color: silver;*font-size:small;*font:x-small}
 
 /* Window Elements */
+.loadCircle{width:20px;height:20px;background:url(../images/loading.gif) #FFF no-repeat center; }
 
 /* Tabs */
 #tabs{height:24px;overflow:hidden;}

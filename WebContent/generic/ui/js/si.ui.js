@@ -14,15 +14,23 @@ si.ui = si.ui ? ui : {};
 /**
  * Show a loading mask DIV
  */
-si.ui.showLoading = function() {
-	$("body").append('<div id="loading" class="lock"></img></div>');
+si.ui.showLoading = function(targetId) {
+	if(null == targetId)
+		$('body').append('<div id="loading" class="lock"></div>');
+	else {
+		$('#'+targetId+'Loading').remove();
+		$('#'+targetId).append('<div id="'+targetId+'Loading" class="loadCircle"></div>');
+	}
 };
 
 /**
  * Close the loading mask DIV
  */
-si.ui.closeLoading = function() {
-	$("#loading").remove();
+si.ui.closeLoading = function(targetId) {
+	if (null == targetId)
+		$("#loading").remove();
+	else
+		$('#' + targetId + 'Loading').remove();
 };
 
 /**

@@ -15,6 +15,11 @@ public class Message {
 		super();
 	}
 
+	public Message(String status) {
+		super();
+		this.status = status;
+	}
+
 	public Message(String status, String description) {
 		super();
 		this.status = status;

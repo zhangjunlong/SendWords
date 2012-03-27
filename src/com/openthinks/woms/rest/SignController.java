@@ -46,6 +46,24 @@ public class SignController extends ValidationAwareSupport implements
 	@Autowired
 	private AccountService accountService;
 
+	public HttpHeaders up() {
+		try {
+			accountService.create(model);
+
+			msg = new Message(Message.SUCCESS);
+			addActionMessage("Account created successfully");
+			return new DefaultHttpHeaders("success").setLocation(model
+					.getUserId());
+		} catch (Exception e) {
+			msg = new Message(Message.FAILURE);
+			addActionMessage("Account created failed");
+			HttpHeaders httpHeaders = new DefaultHttpHeaders();
+			httpHeaders.setStatus(202);
+			return httpHeaders;
+		}
+
+	}
+
 	/**
 	 * Sign in a account
 	 * 
@@ -103,6 +121,23 @@ public class SignController extends ValidationAwareSupport implements
 		HttpServletResponse response = ServletActionContext.getResponse();
 		request.getSession().invalidate();
 		response.sendRedirect(request.getContextPath() + "/index.html");
+
+		return null;
+	}
+
+	/**
+	 * Check an user ID is available
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public String check() throws Exception {
+		Account acc = accountService.find(model.getUserId());
+		if (acc != null) {
+			msg = new Message(Message.FAILURE, "用户名已存在");
+		} else {
+			msg = new Message(Message.SUCCESS, "用户名可用");
+		}
 
 		return null;
 	}

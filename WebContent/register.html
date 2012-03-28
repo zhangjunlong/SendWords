@@ -38,14 +38,14 @@
 								return true;
 							}
 						},
-						success : function(data,httpStatus) {
+						success : function(data) {
 							si.ui.closeLoading();
 							
-							if (httpStatus == '201') {
+							if (data.status == 'success') {
 								$("#footer").slideUp("1000");
 								$("#sign").fadeOut("slow");
 								
-								window.location = '/';
+								window.location = './index.html';
 							} else {
 								$('#err').html('注册失败');
 								$('#err').show();
@@ -63,10 +63,10 @@
 		var checkAvailiable = function() {
 			var userId = $("#uid").val();
 			si.ui.showLoading("uidTip");
-			$('#submitBtn').attr('disabled','disabled');
+			//$('#submitBtn').attr('disabled','disabled');
 			$.get("sign/0/check.json?userId="+userId,function(data){
 				$("#uidTip").html(data.description);
-				$('#submitBtn').attr('disabled','');
+				//$('#submitBtn').attr('disabled','');
 			});
 		}
 	</script>
@@ -87,7 +87,7 @@
 			<div id ="uidTip" class="tip">请输入一个电子邮件地址</div>
 			<br/><br/>
 			<label for="pwd">密码 </label><input id="pwd" type="password" name="password" tabindex="2" class="required"/><br/><br/>
-			<label for="rePwd">重复密码</label><input id="rePwd" type="password" name="password" tabindex="3" class="required"/><br/><br/>
+			<label for="rePwd">重复密码</label><input id="rePwd" type="password" tabindex="3" class="required"/><br/><br/>
 			<button id="submitBtn" type="submit" value="注册" >注册</button>&nbsp;&nbsp;&nbsp;&nbsp;
 			<button type="reset" value="取消" onclick="history.back();">取消</button>
 		</form>

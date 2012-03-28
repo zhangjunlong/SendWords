@@ -48,6 +48,7 @@ public class SignController extends ValidationAwareSupport implements
 
 	public HttpHeaders up() {
 		try {
+			model.setRole(Role.USER);
 			accountService.create(model);
 
 			msg = new Message(Message.SUCCESS);

@@ -12,6 +12,17 @@ var si = si ? si : {};
 si.ui = si.ui ? ui : {};
 
 /**
+ * Clear content
+ */
+si.ui.clear = function(obj) {
+	if($(obj).attr('placeholder') != null) {
+		if($(obj).val() == $(obj).attr('placeholder'))
+			$(obj).val('');
+	} else 
+		$(obj).val('');
+};
+
+/**
  * Show a loading mask DIV
  */
 si.ui.showLoading = function(targetId) {
@@ -188,4 +199,3 @@ si.ui.form.input.notNull = function(obj) {
 		return true;
 	}
 };
-

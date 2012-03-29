@@ -19,6 +19,7 @@ import com.opensymphony.xwork2.ValidationAwareSupport;
 import com.openthinks.woms.account.Account;
 import com.openthinks.woms.account.Role;
 import com.openthinks.woms.account.service.AccountService;
+import com.openthinks.woms.profile.Person;
 import common.Logger;
 
 /**
@@ -39,7 +40,7 @@ public class SignController extends ValidationAwareSupport implements
 	private static final Logger logger = Logger.getLogger(SignController.class);
 
 	// Model for interacting
-	private Account model = new Account();
+	private Account model = new Person();
 
 	private Message msg;
 
@@ -58,9 +59,8 @@ public class SignController extends ValidationAwareSupport implements
 		} catch (Exception e) {
 			msg = new Message(Message.FAILURE);
 			addActionMessage("Account created failed");
-			HttpHeaders httpHeaders = new DefaultHttpHeaders();
-			httpHeaders.setStatus(202);
-			return httpHeaders;
+
+			return GenericRestfulController.ACCEPTED;
 		}
 
 	}
@@ -96,7 +96,7 @@ public class SignController extends ValidationAwareSupport implements
 						+ " signed in as a console user.");
 
 				return new DefaultHttpHeaders("success").setLocationId(model
-						.getUserId());
+						.getId());
 			} else {
 
 				msg.setDescription("client");

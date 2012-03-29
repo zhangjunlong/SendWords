@@ -55,9 +55,13 @@ label {display: inline-block;vertical-align:middle;text-align:right;width:65px}
 .left{text-align:left}
 .right{text-align:right}
 .center{text-align:center}
+.middle {vertical-align: middle;}
 
 .floatLeft{float:left}
 .floatRight{float:right}
+
+.imageBlockContent{overflow: hidden;}
+.inlineBlock {display: inline-block;}
 
 .hidden{display:none;}
 .lock{position:absolute; top:0; left:0; width:99%; height: 99%; background-color: black; filter:alpha(opacity=50); -moz-opacity:0.5; opacity: 0.5;BACKGROUND:url(../images/loading.gif) #FFF no-repeat center; }

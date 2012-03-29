@@ -7,6 +7,15 @@
 	http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"
 	default-autowire="byName">
 
+	<!-- MVC Controllers -->
+
+	<bean id="messageController" class="com.openthinks.woms.message.rest.MessageController"
+		scope="prototype" />
+
+	<!-- MVC Model -->
+
+	<bean id="messageService" class="com.openthinks.woms.message.service.impl.MessageServiceImpl" />
+
 	<bean id="messageDao" class="com.openthinks.woms.message.dao.impl.MessageDaoJpaImpl" />
 
 </beans>

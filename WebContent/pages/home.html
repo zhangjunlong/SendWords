@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link href="../generic/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="../generic/ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<script type="text/javascript" src="../generic/js/jquery.js"></script>
+	<script type="text/javascript" src="../generic/js/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../generic/js/HashMap.js"></script>
+	<script type="text/javascript" src="../generic/ui/js/si.ui.js"></script>
+	<script type="text/javascript" src="js/order.js"></script>
+	<script type="text/javascript" src="js/utils.js"></script>
+	<title>主页</title>
+	<script type="text/javascript">
+		$(document).ready(function(){
+	        utils.userId = utils.getParameter("userId");
+	        utils.userName = utils.getParameter("userName");
+		    
+		    $.get('../person/'+utils.userId+'.json',function (data){
+			    $('title').prepend(data.name+"的");
+		    	$('#name').html(data.name);
+		    });
+		    
+			$("#msgs").fadeIn("slow");
+			$("#footer").slideDown("1000");
+		});
+		
+		var post = function() {
+			var msg = $('#newMsg').val();
+			if(''==msg) {
+				$('#newMsg').focus();
+				return;	
+			}
+			
+			$.post('../message','content='+msg,function(data){
+				alert(data);
+			});
+		}
+	</script>
+</head>
+<body>
+<div id="top" class="blueBar"><a href="register.html">我的主页</a> | <a href="register.html">登出</a></div>
+<div id="main" class="rimmed">
+	<div class="metal left">
+		<img class="inlineBlock middle" src="../generic/images/na_male.gif"/>
+		<div class="imageBlockContent inlineBlock" style="height:48px">
+			<h1 id="name"></h1>
+			<h3>“<em id="status"> 个性签名 </em>”</h3>
+		</div>
+	</div>
+	<p>
+		<span id="err" class="err"></span><br/>
+	</p>
+	<div id="myMsg">
+		<textarea id="newMsg" title="留下点什么... ..." style="width:50%;height:48px;" onclick="si.ui.clear(this);" placeholder="留下点什么... ...">留下点什么... ...</textarea>
+		<button type="button" value="发布" onclick="post();">发布</button>
+	</div>
+	<div id="msgs" class="rimmed hidden">
+		<h3>留言墙：</h3>
+	</div>
+</div>
+<div id="footer" class="hidden">&nbsp;&nbsp;&copy; Smart Interactive&trade; System Technology</div>
+</body>
+</html>

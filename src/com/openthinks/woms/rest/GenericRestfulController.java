@@ -3,6 +3,7 @@ package com.openthinks.woms.rest;
 import java.util.Map;
 
 import org.apache.struts2.interceptor.SessionAware;
+import org.apache.struts2.rest.DefaultHttpHeaders;
 import org.apache.struts2.rest.HttpHeaders;
 
 import com.opensymphony.xwork2.ModelDriven;
@@ -17,6 +18,16 @@ import com.opensymphony.xwork2.ValidationAwareSupport;
  */
 public abstract class GenericRestfulController extends ValidationAwareSupport
 		implements ModelDriven<Object>, Validateable, SessionAware {
+
+	/**
+	 * HTTP Header of code 202
+	 */
+	protected static HttpHeaders ACCEPTED;
+
+	static {
+		ACCEPTED = new DefaultHttpHeaders();
+		ACCEPTED.setStatus(202);
+	}
 
 	/**
 	 * 

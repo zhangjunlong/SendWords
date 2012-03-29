@@ -37,7 +37,7 @@
 
 		function update(obj) {
 			var option = {
-				url:'../../account/'+obj.id+'.json',
+				url:'../../person/'+obj.id+'.json',
 				callback: function(data){
 					$('#id').val(data.id);
 					$('#userId').val(data.userId);
@@ -49,7 +49,7 @@
 					if(null != data.accountGroup)
 						$('#group').val(data.accountGroup.id);
 				
-					$('#daoForm').attr('action','../../account/'+data.id+'.json');
+					$('#daoForm').attr('action','../../person/'+data.id+'.json');
 				}
 			};
 			
@@ -70,7 +70,7 @@
 		
 		function del() {
 			var delOption = {
-				url : '../../account/'+$('#id').val()+'.json'
+				url : '../../person/'+$('#id').val()+'.json'
 			};
 			
 			si.ui.dao.del(delOption);
@@ -101,12 +101,12 @@
 	</div>
 	<div id="operation" class="rimmed floatLeft hidden">	
 		<h3 id="currentDaoOperation">新建</h3>
-		<form id="daoForm" action="../../account.json" method="post">
+		<form id="daoForm" action="../../person.json" method="post">
 			<label for="userId">账号 ID</label><input id ="userId" type="text" name="userId" class="required"/> <br/>
 			<label for="pwd">账号密码</label><input id ="pwd" type="text" name="password" class="required"/> <br/>
 			<label for="name">账号名称</label><input id="name" type="text" name="name" class="required"/> <br/>
 			<label for="desc" class="textareaLabel">描述</label><textarea id="desc" name="description" ></textarea> <br/>
-			<label for="tAmount">目标金额</label><input id="tAmount" type="text" name="targetAmount" /> <br/>
+			
 			<label for="role">权限角色</label>
 				<select id="role" name="role">
 					<option value="admin">后台管理</option>

@@ -24,9 +24,14 @@ public abstract class GenericRestfulController extends ValidationAwareSupport
 	 */
 	protected static HttpHeaders ACCEPTED;
 
+	protected static HttpHeaders INTERNAL_SERVER_ERROR;
+
 	static {
 		ACCEPTED = new DefaultHttpHeaders();
 		ACCEPTED.setStatus(202);
+
+		INTERNAL_SERVER_ERROR = new DefaultHttpHeaders();
+		INTERNAL_SERVER_ERROR.setStatus(500);
 	}
 
 	/**

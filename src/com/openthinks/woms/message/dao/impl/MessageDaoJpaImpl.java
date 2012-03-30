@@ -1,5 +1,7 @@
 package com.openthinks.woms.message.dao.impl;
 
+import java.util.Collection;
+
 import com.openthinks.dao.GenericJpaDaoBean;
 import com.openthinks.woms.message.Message;
 import com.openthinks.woms.message.dao.MessageDao;
@@ -15,5 +17,12 @@ public class MessageDaoJpaImpl extends GenericJpaDaoBean<Message, Long>
 
 	public MessageDaoJpaImpl() {
 		super(Message.class);
+	}
+
+	@Override
+	public Collection<Message> find(long uid) throws Exception {
+		String ql = "SELECT m FROM Message m WHERE m.receiver.id = ?0";
+
+		return this.query(ql, uid);
 	}
 }

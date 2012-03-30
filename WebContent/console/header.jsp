@@ -11,11 +11,11 @@
 	<div id="top">
 		${sessionScope.id} [${sessionScope.name} / ${sessionScope.roleName}]
 		<!-- | <a href="account/home.cgi" target="body">账户设置</a>  -->
-		 | <a href="../sign/<%=session.getAttribute("id") %>/out" target="_top">退出</a>
+		 | <a href="../sign/0/out" target="_top">退出</a>
 		 | <a href="#">帮助</a>
 	</div>
 	<div id="header">
-		<div style="float:left;font-size: 28px"><font style="font-family: serif;"><font color="blue">Smart</font> <font color="green">Interactiv</font><font class="noShadow" style="color:lightblue;background-color:green;font-style: italic;">e</font><font style="font-family: sans-serif;">&trade;</font></font></div>
+		<div style="float:left;font-size: 21px"><font style="font-family: serif;"><font color="blue">Smart</font> <font color="green">Interactiv</font><font class="noShadow" style="color:lightblue;background-color:green;font-style: italic;">e</font><font style="font-family: sans-serif;">&trade;</font></font></div>
 		<div style="float:right;font-weight:bold"><h1>后台管理</h1></div>
 	</div>
 </div>

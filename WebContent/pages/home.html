@@ -19,11 +19,25 @@
 		    $.get('../person/'+utils.userId+'.json',function (data){
 			    $('title').prepend(data.name+"的");
 		    	$('#name').html(data.name);
+		    	
+		    	list();
 		    });
 		    
 			$("#msgs").fadeIn("slow");
 			$("#footer").slideDown("1000");
 		});
+		
+		var list = function () {
+			si.ui.showLoading('msgs');
+			$('#msgs .rimmed').remove();
+			$.get('../message.json',function(data){
+				$.each(data.extend,function(index,msg) {
+					$('#msgs').append('<div id=msg'+msg.id+' class="rimmed">'+msg.content+'<div class="light inlineBlock">  --'+msg.sender.userId+'</div></div>');
+				});
+				
+				si.ui.closeLoading('msgs');
+			});
+		}
 		
 		var post = function() {
 			var msg = $('#newMsg').val();
@@ -32,18 +46,19 @@
 				return;	
 			}
 			
-			$.post('../message','content='+msg,function(data){
-				alert(data);
+			$.post('../message.json','content='+msg+'&receiver.id='+utils.userId,function(data){
+				list();
 			});
 		}
 	</script>
 </head>
 <body>
-<div id="top" class="blueBar"><a href="register.html">我的主页</a> | <a href="register.html">登出</a></div>
+<div id="top" class="blueBar"><a href="register.html">我的主页</a> | <a href="../sign/0/out">登出</a></div>
 <div id="main" class="rimmed">
 	<div class="metal left">
 		<img class="inlineBlock middle" src="../generic/images/na_male.gif"/>
 		<div class="imageBlockContent inlineBlock" style="height:48px">
+			<input type="hidden" id="accountId"/>
 			<h1 id="name"></h1>
 			<h3>“<em id="status"> 个性签名 </em>”</h3>
 		</div>

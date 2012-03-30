@@ -6,7 +6,8 @@ import com.openthinks.woms.message.Message;
 
 public interface MessageService {
 
-	void create(Message msg) throws Exception;
+	Message create(String content, long senderId, long receiverId)
+			throws Exception;
 
 	/**
 	 * Retrieve an user's messages
@@ -14,7 +15,7 @@ public interface MessageService {
 	 * @param uid
 	 * @return
 	 */
-	Collection<Message> retrieveMsgs(String uid) throws Exception;
+	Collection<Message> retrieveMsgs(long uid) throws Exception;
 
 	void delete(long msgId) throws Exception;
 

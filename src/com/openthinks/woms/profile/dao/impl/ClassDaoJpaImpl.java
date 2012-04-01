@@ -15,7 +15,7 @@ public class ClassDaoJpaImpl extends GenericJpaDaoBean<Class, Integer>
 
 	@Override
 	public Collection<Class> read() throws Exception {
-		String ql = "select c from Category c";
+		String ql = "select c from Class c";
 		return this.readSpecifiedSection(ql, 0, 1).getResultList();
 	}
 

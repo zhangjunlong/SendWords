@@ -58,7 +58,7 @@
 
 		function initSelectOptions() {
 			// Init brands
-			$.getJSON('../../accountgroup.json', function(data) {
+			$.getJSON('../../class.json', function(data) {
 				var items = [];
 				items.push('<option></option>');
 				$.each(data, function(index, group) {
@@ -79,14 +79,14 @@
 </head>
 <body>
 <div id="main" class="rimmed">
-	<h2 class="dark">账号</h2>
+	<h2 class="dark">个人 </h2>
 	<div id="dataList" class="rimmed floatLeft">
 	    <div class="toolbar"><button onclick="si.ui.dao.create();">新建+</button></div>    
     	<table class="data">
 			<thead>
 				<tr>
 					<th>账号 ID</th>
-					<th>账号名称</th>
+					<th>姓名</th>
 				</tr>
 			</thead>
 			<tbody id="data">
@@ -100,7 +100,7 @@
 		</table>    
 	</div>
 	<div id="operation" class="rimmed floatLeft hidden">	
-		<h3 id="currentDaoOperation">新建</h3>
+		<h3 id="currentDaoOperation">创建</h3>
 		<form id="daoForm" action="../../person.json" method="post">
 			<label for="userId">账号 ID</label><input id ="userId" type="text" name="userId" class="required"/> <br/>
 			<label for="pwd">账号密码</label><input id ="pwd" type="text" name="password" class="required"/> <br/>
@@ -109,10 +109,10 @@
 			
 			<label for="role">权限角色</label>
 				<select id="role" name="role">
-					<option value="admin">后台管理</option>
-					<option value="user">普通用户</option>
+					<option value="user">用户</option>
+					<option value="admin">管理员</option>
 				</select> <br/>
-			<label for="group">所属分组</label><select id="group" name="accountGroup.id" ></select> <br/>
+			<label for="group">班级</label><select id="group" name="accountGroup.id" ></select> <br/>
 			<button type="submit" value="保存">保存</button>
 			<button type="reset" value="放弃" onclick="si.ui.dao.cancel();">放弃</button>
 		</form>

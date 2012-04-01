@@ -54,24 +54,29 @@
 </head>
 <body>
 <div id="top" class="blueBar"><a href="register.html">我的主页</a> | <a href="../sign/0/out">登出</a></div>
-<div id="main" class="rimmed">
-	<div class="metal left">
-		<img class="inlineBlock middle" src="../generic/images/na_male.gif"/>
-		<div class="imageBlockContent inlineBlock" style="height:48px">
-			<input type="hidden" id="accountId"/>
-			<h1 id="name"></h1>
-			<h3>“<em id="status"> 个性签名 </em>”</h3>
+<div id="main" class="center">
+	<div id="content" class="rimmed floatLeft" style="width:50%">
+		<div class="metal left">
+			<img class="inlineBlock middle" src="../generic/images/na_male.gif"/>
+			<div class="imageBlockContent inlineBlock" style="height:48px">
+				<input type="hidden" id="accountId"/>
+				<h1 id="name"></h1>
+				<h3>“<em id="status"> 个性签名 </em>”</h3>
+			</div>
+		</div>
+		<p>
+			<span id="err" class="err"></span><br/>
+		</p>
+		<div id="myMsg">
+			<textarea id="newMsg" title="留下点什么... ..." style="width:50%;height:48px;" onclick="si.ui.clear(this);" placeholder="留下点什么... ...">留下点什么... ...</textarea>
+			<button type="button" value="发布" onclick="post();">发布</button>
+		</div>
+		<div id="msgs" class="rimmed hidden">
+			<h3>留言墙：</h3>
 		</div>
 	</div>
-	<p>
-		<span id="err" class="err"></span><br/>
-	</p>
-	<div id="myMsg">
-		<textarea id="newMsg" title="留下点什么... ..." style="width:50%;height:48px;" onclick="si.ui.clear(this);" placeholder="留下点什么... ...">留下点什么... ...</textarea>
-		<button type="button" value="发布" onclick="post();">发布</button>
-	</div>
-	<div id="msgs" class="rimmed hidden">
-		<h3>留言墙：</h3>
+	<div id="sidebar" class="rimmed floatRight">
+		<h2 class="dark">班级成员</h2>
 	</div>
 </div>
 <div id="footer" class="hidden">&nbsp;&nbsp;&copy; Smart Interactive&trade; System Technology</div>

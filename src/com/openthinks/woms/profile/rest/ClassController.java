@@ -23,7 +23,7 @@ public class ClassController extends GenericRestfulController {
 	private static final long serialVersionUID = 1L;
 
 	@Autowired
-	private ClassService categoryService;
+	private ClassService classService;
 
 	private String id;
 
@@ -33,7 +33,7 @@ public class ClassController extends GenericRestfulController {
 
 	public HttpHeaders create() {
 		try {
-			categoryService.create(model);
+			classService.create(model);
 
 			addActionMessage("New brand created successfully");
 		} catch (Exception e) {
@@ -49,7 +49,7 @@ public class ClassController extends GenericRestfulController {
 
 	public HttpHeaders show() {
 		try {
-			model = categoryService.find(Integer.parseInt(id));
+			model = classService.find(Integer.parseInt(id), false);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -60,7 +60,7 @@ public class ClassController extends GenericRestfulController {
 	@Override
 	public HttpHeaders index() {
 		try {
-			list = categoryService.find();
+			list = classService.find(true);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -71,12 +71,8 @@ public class ClassController extends GenericRestfulController {
 	@Override
 	public String update() {
 		try {
-			if (null != model.getParentCategory()) {
-				if (model.getParentCategory().getId() == 0) {
-					model.setParentCategory(null);
-				}
-			}
-			categoryService.update(model);
+
+			classService.update(model);
 
 			addActionMessage("Order updated successfully");
 		} catch (Exception e) {
@@ -89,7 +85,7 @@ public class ClassController extends GenericRestfulController {
 	@Override
 	public String destroy() {
 		try {
-			categoryService.delete(Integer.parseInt(id));
+			classService.delete(Integer.parseInt(id));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

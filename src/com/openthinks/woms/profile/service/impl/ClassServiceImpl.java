@@ -5,6 +5,7 @@ import java.util.Collection;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.openthinks.woms.profile.Class;
+import com.openthinks.woms.profile.Person;
 import com.openthinks.woms.profile.dao.ClassDao;
 import com.openthinks.woms.profile.service.ClassService;
 
@@ -19,12 +20,37 @@ public class ClassServiceImpl implements ClassService {
 	}
 
 	@Override
-	public Class find(int id) throws Exception {
-		return categoryDao.read(id);
+	public Class find(int id, boolean simply) throws Exception {
+
+		Class cls = categoryDao.read(id);
+
+		if (simply) {
+			cls.setClassmates(null);
+		} else {
+			for (Person cm : cls.getClassmates()) {
+				cm.getId();
+			}
+
+		}
+
+		return cls;
 	}
 
 	@Override
-	public Collection<Class> find() throws Exception {
+	public Collection<Class> find(boolean simply) throws Exception {
+		Collection<Class> clses = categoryDao.read();
+		if (simply) {
+			for (Class cls : clses) {
+				cls.setClassmates(null);
+			}
+		} else {
+			for (Class cls : clses) {
+				// Fetch classes
+				for (Person cm : cls.getClassmates()) {
+					cm.getId();
+				}
+			}
+		}
 		return categoryDao.read();
 	}
 

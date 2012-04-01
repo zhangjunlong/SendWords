@@ -1,11 +1,13 @@
 package com.openthinks.woms.profile;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * Class of a person
@@ -19,14 +21,13 @@ public class Class implements Profile {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
 
+	private String picture;
+
 	@Column(length = 100)
 	private String name;
 
-	@Column(length = 20)
-	private String code;
-
-	@ManyToOne
-	private Class parentCategory;
+	@OneToMany
+	private List<Person> classmates;
 
 	public int getId() {
 		return id;
@@ -44,20 +45,20 @@ public class Class implements Profile {
 		this.name = name;
 	}
 
-	public String getCode() {
-		return code;
+	public String getPicture() {
+		return picture;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setPicture(String picture) {
+		this.picture = picture;
 	}
 
-	public Class getParentCategory() {
-		return parentCategory;
+	public List<Person> getClassmates() {
+		return classmates;
 	}
 
-	public void setParentCategory(Class parentCategory) {
-		this.parentCategory = parentCategory;
+	public void setClassmates(List<Person> classmates) {
+		this.classmates = classmates;
 	}
 
 }

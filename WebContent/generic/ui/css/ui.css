@@ -60,6 +60,7 @@ label {display: inline-block;vertical-align:middle;text-align:right;width:65px}
 .floatLeft{float:left}
 .floatRight{float:right}
 
+.block{display:block;}
 .imageBlockContent{overflow: hidden;}
 .inlineBlock {display: inline-block;}
 
@@ -264,10 +265,10 @@ label.error{width:100%;}
 	padding: 5px;
 }
 #main {
-	margin-right: 1px 2px 1px 2px;
+	margin: 1px 2px 1px 2px;
 	border: 0px;
 	float: left;
-	width: 98%;
+	width: 100%;
 	height: auto;
 	overflow: auto;
 	text-align: center;
@@ -280,7 +281,7 @@ label.error{width:100%;}
 	border: 0px;
 	padding: 5px;
 	border:1px solid #E3E3E3;
-	background: none repeat scroll 0 0 #F2F2F2;
+	background: none repeat scroll 0 0 #FFFFFF;
 }
 #footer {
 	clear: both;
@@ -300,3 +301,13 @@ label.error{width:100%;}
 	width: 650px;
 }
 #colorSize label {display:inline-block;vertical-align:bottom;text-align:left;width:auto;padding: 0 5px 0 0;}
+
+#sidebar{
+	background-color:#f2f4f8;
+	border-left:1px solid rgba(0, 0, 0, .4);
+	top:0;
+	right:0;
+	width:179px;
+	height:auto;
+	display: block;
+}

@@ -5,11 +5,11 @@
 	<title>Account Group</title>
 	<link href="../ui/css/basic.css" rel="stylesheet" type="text/css" />
 	<link href="../ui/css/ui.css" rel="stylesheet" type="text/css" />
-	<script type="text/javascript" src="../../common/js/jquery.js"></script>
-	<script type="text/javascript" src="../../common/js/jquery.form.js"></script>
-	<script type="text/javascript" src="../../common/js/jquery.validate.js"></script>
-	<script type="text/javascript" src="../../common/js/si.ui.js"></script>
-	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../../generic/js/jquery.js"></script>
+	<script type="text/javascript" src="../../generic/js/jquery.form.js"></script>
+	<script type="text/javascript" src="../../generic/js/jquery.validate.js"></script>
+	<script type="text/javascript" src="../../generic/ui/js/si.ui.js"></script>
+	<script type="text/javascript" src="../../generic/js/si.common.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			showAll();
@@ -20,12 +20,11 @@
 		function showAll() {
 			si.ui.showLoading();
 
-			$.getJSON("../../accountgroup.json", function(data) {
+			$.getJSON("../../class.json", function(data) {
 				$('#data').empty();
 				$.each(data, function(index, obj) {
 					$('#data').append('<tr id="' + obj.id + '" onclick="update(this);"></tr>');
 					$('#'+obj.id).append('<td>'+obj.name+'</td>');
-					$('#'+obj.id).append('<td>'+obj.code+'</td>');
 				});
 				
 				si.ui.closeLoading();
@@ -34,13 +33,13 @@
 		
 		var update= function(obj) {
 			var option = {
-				url: '../../accountgroup/'+obj.id+'.json',
+				url: '../../class/'+obj.id+'.json',
 				callback : function(data) {
 					$('#id').val(data.id);
 					$('#name').val(data.name);
 					$('#code').val(data.code);
 					
-					$('#daoForm').attr('action','../../accountgroup/'+data.id+'.json');
+					$('#daoForm').attr('action','../../class/'+data.id+'.json');
 				}
 			};
 			
@@ -50,14 +49,13 @@
 </head>
 <body>
 <div id="main" class="rimmed">
-	<h2>账号分组</h2>
+	<h2>班级</h2>
 	<div id="dataList" class="rimmed floatLeft">
-	    <div class="right"><button onclick="si.ui.dao.create();">新建+</button></div>
+	    <div class="right"><button onclick="si.ui.dao.create();">创建+</button></div>
     	<table class="data">
 			<thead>
 				<tr>
-					<th>用户组名称</th>
-					<th>用户组编码</th>
+					<th>班级</th>
 				</tr>
 			</thead>
 			<tbody id="data">
@@ -71,15 +69,14 @@
 		</table>
 	</div>
 	<div id="operation" class="rimmed floatLeft hidden">
-        <h3 id="currentDaoOperation">新建</h3>
-       	<form id="daoForm" action="../../accountgroup.json" method="post">
+        <h3 id="currentDaoOperation">创建</h3>
+       	<form id="daoForm" action="../../class.json" method="POST">
        		<input id ="id" type="hidden" name="id" />
-			<label for="name">用户组名称</label><input id="name" name="name" class="required"/> <br/>
-			<label for="code">用户组编码</label><input id="code" name="code" /> <br/>
+			<label for="name">班级名称</label><input id="name" name="name" class="required"/> <br/>
 			<button type="submit" value="保存">保存</button>
 			<button type="reset" value="放弃" onclick="si.ui.dao.cancel();">放弃</button>
 		</form>
-		<a id="del" onclick="si.ui.dao.del({url:'../../accountgroup/'+$('#id').val()+'.json'});" class="button delete">删除</a>
+		<a id="del" onclick="si.ui.dao.del({url:'../../class/'+$('#id').val()+'.json'});" class="button delete">删除</a>
 	</div>
 </div>
 </body>

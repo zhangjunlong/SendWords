@@ -49,28 +49,12 @@ public class Person extends Account implements Profile {
 		this.name = name;
 	}
 
-	public String getModel() {
-		return gender;
-	}
-
-	public void setModel(String styleNo) {
-		this.gender = styleNo;
-	}
-
 	public String getPicture() {
 		return picture;
 	}
 
 	public void setPicture(String picture) {
 		this.picture = picture;
-	}
-
-	public Class getCategory() {
-		return attendedClasses;
-	}
-
-	public void setCategory(Class category) {
-		this.attendedClasses = category;
 	}
 
 	public String getRemark() {

@@ -18,14 +18,14 @@ public class PersonDaoJpaImpl extends GenericJpaDaoBean<Person, Long>
 
 	@Override
 	public List<Person> read() throws Exception {
-		String ql = "select p from Product p order by p.model";
+		String ql = "select p from Person p order by p.name";
 
 		return this.readSpecifiedSection(ql, 0, 1).getResultList();
 	}
 
 	@Override
 	public SectionResult<Person> read(int size, int section) throws Exception {
-		String ql = "select p from Product p order by p.model";
+		String ql = "select p from Person p order by p.name";
 
 		return this.readSpecifiedSection(ql, size, section);
 	}

@@ -9,8 +9,9 @@
 <body>
 <div class="metal">
 	<div id="top">
-		${sessionScope.id} [${sessionScope.name} / ${sessionScope.roleName}]
+		${sessionScope.id} [${sessionScope.id} / ${sessionScope.role}]
 		<!-- | <a href="account/home.cgi" target="body">账户设置</a>  -->
+		 | <a href="../../home.html">转到主页</a>
 		 | <a href="../sign/0/out" target="_top">退出</a>
 		 | <a href="#">帮助</a>
 	</div>

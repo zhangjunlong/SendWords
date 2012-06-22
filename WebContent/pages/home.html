@@ -1,41 +1,59 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>主页</title>
+	
 	<link href="../generic/css/basic.css" rel="stylesheet" type="text/css" />
-	<link href="../generic/ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<link href="../generic/ui/css/basic/si.ui.css" rel="stylesheet" type="text/css" />
+	<link href="ui/css/jquery.mobile/jquery.mobile.css" rel="stylesheet" type="text/css" />
+	<link href="ui/css/jquery.mobile/jqm-datebox.css" rel="stylesheet" type="text/css" />
+	<link href="ui/css/si.fw.css" rel="stylesheet" type="text/css" />
+	
 	<script type="text/javascript" src="../generic/js/jquery.js"></script>
 	<script type="text/javascript" src="../generic/js/jquery.pagination.js"></script>
 	<script type="text/javascript" src="../generic/js/HashMap.js"></script>
+	<script type="text/javascript" src="../generic/js/si.utils.js"></script>
 	<script type="text/javascript" src="../generic/ui/js/si.ui.js"></script>
-	<script type="text/javascript" src="js/order.js"></script>
-	<script type="text/javascript" src="js/utils.js"></script>
-	<title>主页</title>
+	<script type="text/javascript" src="ui/js/jquery.mobile.js"></script>
+	<script type="text/javascript" src="ui/js/jqm-datebox.core.js"></script>
+	<script type="text/javascript" src="ui/js/jqm-datebox.mode.datebox.js"></script>
+	<script type="text/javascript" src="ui/js/jquery.mobile.datebox.i18n.zh-CN.utf8.js"></script>
 	<script type="text/javascript">
+		var msgViewFlag='all';
 		$(document).ready(function(){
-	        utils.userId = utils.getParameter("userId");
-	        utils.userName = utils.getParameter("userName");
+	        userId = si.utils.url.getParameter("userId");
+	        userName = si.utils.url.getParameter("userName");
 		    
-		    $.get('../person/'+utils.userId+'.json',function (data){
+		    $.get('../person/'+userId+'.json',function (data){
 			    $('title').prepend(data.name+"的");
 		    	$('#name').html(data.name);
-		    	
-		    	list();
+		    	listMsgs();
+		    	listPeople();
 		    });
 		    
 			$("#msgs").fadeIn("slow");
-			$("#footer").slideDown("1000");
 		});
 		
-		var list = function () {
-			si.ui.showLoading('msgs');
-			$('#msgs .rimmed').remove();
+		function listMsgs () {
+			$.mobile.showPageLoadingMsg();
+			$('#msgs .msgbox').remove();	
 			$.get('../message.json',function(data){
-				$.each(data.extend,function(index,msg) {
-					$('#msgs').append('<div id=msg'+msg.id+' class="rimmed">'+msg.content+'<div class="light inlineBlock">  --'+msg.sender.userId+'</div></div>');
+				$.each(data.extend.reverse(),function(index,msg) {
+					var myMsg=false;
+					if(msg.sender.id==userId){
+						myMsg=true;
+					}
+					var msgHtml='<div id=msg'+msg.id+' class="msgbox {msgClass}"><pre class="msgContent">'+msg.content+'</pre><div class="sign"><a href="javascript:gotoProfilePage('+msg.sender.id+');">-'+msg.sender.name+'-</a></div></div>';
+					if(myMsg){
+						msgHtml=msgHtml.replace(/{msgClass}/g, 'myMsg');
+					} else {
+						msgHtml=msgHtml.replace(/{msgClass}/g, 'gMsg');
+					}
+					$('#msgs').append(msgHtml);
 				});
 				
-				si.ui.closeLoading('msgs');
+				$.mobile.hidePageLoadingMsg();
 			});
 		}
 		
@@ -46,39 +64,113 @@
 				return;	
 			}
 			
-			$.post('../message.json','content='+msg+'&receiver.id='+utils.userId,function(data){
-				list();
+			$.post('../message.json','content='+msg+'&receiver.id='+userId,function(data){
+				$('#newMsg').val('');
+				listMsgs();
 			});
+		}
+		
+		function gotoProfilePage(id) {
+			if(!id) {
+				id=userId;
+			}
+			
+			window.location.hash='profilePage';
+			
+			$.get('../person/'+id+'.json',function (data){
+				$('#profile_id').val(data.id);
+		    	$('#profile_name').val(data.name);
+		    	$('#profile_birthday').val(data.birthday);
+		    	$('#profile_hometown').val(data.hometown);
+		    	$('#profile_remark').val(data.remark);
+		    	$('#profileForm').attr('action','../person/'+data.id+'.json');
+		    	listMsgs();
+		    });
+		}
+		
+		function listPeople() {
+			$.get('../person.json',function (people) {
+				$.each(people,function(i,person){
+					var pHtml='<li><img src="'+person.picture+'" onerror="this.src=\'../generic/images/na_male.gif\'"/><div>'+person.name+'</div></li>';
+					$('#peopleUl').append(pHtml)
+				});
+			});
+		}
+		
+		function msgViewSwitch(obj) {
+			msgViewSwitchFlag=obj.value;
+			listMsg();
 		}
 	</script>
 </head>
 <body>
-<div id="top" class="blueBar"><a href="register.html">我的主页</a> | <a href="../sign/0/out">登出</a></div>
-<div id="main" class="center">
-	<div id="content" class="rimmed floatLeft" style="width:50%">
-		<div class="metal left">
-			<img class="inlineBlock middle" src="../generic/images/na_male.gif"/>
-			<div class="imageBlockContent inlineBlock" style="height:48px">
+<div data-role="page" id="homePage">
+	<div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="c">
+		<h1>告别寄语 | Farewell</h1>
+		<a href="../sign/0/out" target="_top">登出</a>
+		<div class="ui-btn-right" style="height:35px;cursor:pointer" onclick="gotoProfilePage();">
+			<img class="avatar inlineBlock middle" src="../generic/images/na_male.gif"/>
+			<div class="inlineBlock middle">
 				<input type="hidden" id="accountId"/>
-				<h1 id="name"></h1>
-				<h3>“<em id="status"> 个性签名 </em>”</h3>
+				<h2 id="name"></h2>
 			</div>
 		</div>
+	</div>
+	<div data-role="content" class="centered">
+		<div>
+			<p>
+				<span id="err" class="err"></span><br/>
+			</p>
+			<div id="myMsg">
+				<textarea id="newMsg" style="height:48px;" onclick="si.ui.clear(this);" placeholder="写下寄语... ..."></textarea>
+				<button type="button" value="发表" onclick="post();" data-inline="true">发表</button>
+			</div>
+			<h2 class="block right"><a href="farewellWall.html" target="_blank">寄语墙｜</a></h2>
+			<div id="msgViewSwitcher">
+				<select name="slider" id="flip-a" data-role="slider" onchange="msgViewSwitch(this);">
+					<option value="all">全部寄语</option>
+					<option value="self">我的寄语</option>
+				</select>
+			</div>
+			<div id="msgs" class="rounded hidden">
+			</div>
+		</div>
+		<div class="rounded centered">
+			<ul id="peopleUl">
+			
+			</ul>
+		</div>
+	</div>
+	<div data-role="footer" data-position="fixed" data-fullscreen="false" data-theme="c">
+		<h4>&copy; 2012 SI Farewell</h4>
+	</div>
+</div>
+<div data-role="dialog" id="profilePage">
+	<div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="c">
+		<h1>个人资料 | Profile</h1>
+	</div>
+	<div data-role="content" class="centered">
 		<p>
 			<span id="err" class="err"></span><br/>
 		</p>
-		<div id="myMsg">
-			<textarea id="newMsg" title="留下点什么... ..." style="width:50%;height:48px;" onclick="si.ui.clear(this);" placeholder="留下点什么... ...">留下点什么... ...</textarea>
-			<button type="button" value="发布" onclick="post();">发布</button>
+		<div id="profile">
+			<h2 id="profile_name"></h2>
+			<form id="profileForm" action="../person.json" method="POST">
+				<input name="_method" value="put" type="hidden"/> 
+				<input id="profile_id" name="id" type="hidden"/>
+				<div data-role="fieldcontain">
+				    <label for="profile_birthday">生日：</label>
+					<input id="profile_birthday" name="birthday" type="text" data-role="datebox" data-options='{"dateFormat": "YYYY-mm-dd", "mode":"datebox","useNewStyle":true,"themeButton":"e","themeHeader":"c"}' readonly="readonly" data-theme="c">
+				</div>
+				<div data-role="fieldcontain">
+					<label for="profile_hometown">家乡：</label>
+					<input id="profile_hometown" name="hometown" placeholder="比如：南昌"/>
+				</div>
+				<textarea id="profile_remark" name="remark" style="height:48px;" placeholder="个人签名... ..."></textarea>
+				<button type="submit" data-inline="true">保存</button>
+			</form>
 		</div>
-		<div id="msgs" class="rimmed hidden">
-			<h3>留言墙：</h3>
-		</div>
-	</div>
-	<div id="sidebar" class="rimmed floatRight">
-		<h2 class="dark">班级成员</h2>
 	</div>
 </div>
-<div id="footer" class="hidden">&nbsp;&nbsp;&copy; Smart Interactive&trade; System Technology</div>
 </body>
 </html>

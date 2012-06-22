@@ -34,9 +34,7 @@ public class Message {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date date;
-
-	private int currentNoticeVersion;
-
+	
 	public long getId() {
 		return id;
 	}
@@ -75,14 +73,6 @@ public class Message {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public int getCurrentNoticeVersion() {
-		return currentNoticeVersion;
-	}
-
-	public void setCurrentNoticeVersion(int currentNoticeVersion) {
-		this.currentNoticeVersion = currentNoticeVersion;
 	}
 
 }

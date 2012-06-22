@@ -72,7 +72,7 @@ public class MessageController extends GenericRestfulController {
 					.getSession();
 			long uid = (Long) session.get("id");
 
-			msgs = messageService.retrieveMsgs(uid);
+			msgs = messageService.retrieveAllMsgs();
 
 			msg = new com.openthinks.woms.rest.Message(
 					com.openthinks.woms.rest.Message.SUCCESS);

@@ -1,19 +1,21 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta charset="UTF-8">
+	<title>寄语...Farewell</title>
+	
 	<link rel="icon" href="animated_favicon.gif" type="image/gif" >
-	<title>写下你的文字，在这里...</title>
 	<link href="generic/css/basic.css" rel="stylesheet" type="text/css" />
-	<link href="generic/ui/css/ui.css" rel="stylesheet" type="text/css" />
+	<link href="generic/ui/css/basic/si.ui.css" rel="stylesheet" type="text/css" />
+	<link href="pages/ui/css/jquery.mobile/jquery.mobile.css" rel="stylesheet" type="text/css" />
+	
 	<script type="text/javascript" src="generic/js/jquery.js"></script>
 	<script type="text/javascript" src="generic/js/jquery.form.js"></script>
 	<script type="text/javascript" src="generic/ui/js/si.ui.js"></script>
+	<script type="text/javascript" src="pages/ui/js/jquery.mobile.js"></script>
 	<script type="text/javascript">
 		$(document).ready(
 				function() {
-					$("#sign").fadeIn("slow");
-					$("#footer").slideDown("1000");
 					$("#uid").focus();
 
 					var options = {
@@ -31,7 +33,6 @@
 							si.ui.closeLoading();
 							
 							if (data.status == 'success') {
-								$("#footer").slideUp("1000");
 								$("#sign").fadeOut("slow");
 								
 								if (data.description == 'client')
@@ -54,24 +55,38 @@
 	</script>
 </head>
 <body>
-<div id="top" class="blueBar"><a href="register.html">注册</a></div>
-<div id="main" class="rimmed">
-	<div>
-	<h1> 毕业寄语 </h1>
-	<h3><em> - 前方的路通向远方，我们的回忆比路长 ...</em></h3>
+<div data-role="page" id="home">
+	<div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="c">
+		<h1>告别寄语 | Farewell</h1>
 	</div>
-	<div id="sign" class="rimmed hidden">
-		<p>
-			<span id="err" class="error msg"></span>
-		</p>
-		<form id="signForm" method="GET">
-			<label for="uid">用户 </label><input id="uid" type="text" name="userId" tabindex="1"/><br/><br/>
-			<label for="pwd">密码 </label><input id="pwd" type="password" name="password" tabindex="2"/><br/><br/>
-			<button type="submit" value="登录" >登录</button>&nbsp;&nbsp;&nbsp;&nbsp;
-			<button type="reset" value="清除" >清除</button>
-		</form>
+	<div data-role="content" class="centered">
+		<div>
+			<div>
+				<h1> 告别寄语 </h1>
+				<h2><em> - 前方的路通向远方，我们的回忆比路长 ...</em></h2>
+			</div>
+			<div id="sign" class="rounded">
+				<p>
+					<span id="err" class="error msg"></span>
+				</p>
+				<form id="signForm" method="GET">
+					<div data-role="fieldcontain">
+						<label for="uid">用户 </label>
+						<input id="uid" type="text" name="userId" placeholder="在此输入用户ID" tabindex="1"/>
+					</div>
+					<div data-role="fieldcontain">
+						<label for="pwd">密码 </label>
+						<input id="pwd" type="password" name="password" placeholder="在此输入密码" tabindex="2"/>
+					</div>
+					<button type="submit" value="登录" data-inline="true">登录</button>
+					<button type="reset" value="清除" data-inline="true">清除</button>
+				</form>
+			</div>
+		</div>
+		<div data-role="footer" data-position="fixed" data-fullscreen="false" data-theme="c">
+			<h4>&copy; 2012 SI Farewell</h4>
+		</div>
 	</div>
 </div>
-<div id="footer" class="hidden">&nbsp;&nbsp;&copy; Smart Interactive&trade; System Technology</div>
 </body>
 </html>

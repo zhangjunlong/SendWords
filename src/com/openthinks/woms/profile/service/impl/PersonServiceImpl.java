@@ -55,7 +55,24 @@ public class PersonServiceImpl implements PersonService {
 
 	@Override
 	public void update(Person person) throws Exception {
-		personDao.update(person);
+		Person pPerson = personDao.read(person.getId());
+
+		if (null != person.getBirthday())
+			pPerson.setBirthday(person.getBirthday());
+
+		if (null != person.getGender())
+			pPerson.setGender(person.getGender());
+
+		if (null != person.getHometown())
+			pPerson.setHometown(person.getHometown());
+
+		if (null != person.getPicture())
+			pPerson.setPicture(person.getPicture());
+
+		if (null != person.getRemark())
+			pPerson.setRemark(person.getRemark());
+
+		personDao.update(pPerson);
 	}
 
 	@Override

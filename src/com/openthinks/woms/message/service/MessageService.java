@@ -10,7 +10,7 @@ public interface MessageService {
 			throws Exception;
 
 	/**
-	 * Retrieve an user's messages
+	 * Retrieve messages by sender's UID
 	 * 
 	 * @param uid
 	 * @return
@@ -18,5 +18,7 @@ public interface MessageService {
 	Collection<Message> retrieveMsgs(long uid) throws Exception;
 
 	void delete(long msgId) throws Exception;
+
+	Collection<Message> retrieveAllMsgs() throws Exception;
 
 }

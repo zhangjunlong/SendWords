@@ -1,0 +1,68 @@
+@CHARSET "UTF-8";
+/**
+ * Copyright (c) Zhang Junlong
+ *
+ * User interface elements of web pages
+ *
+ */
+ 
+.sign{
+	cursor:pointer;
+	display:inline-block;
+	margin: 2px;
+	border-radius:3px;
+	box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.5);
+	-webkit-box-shadow:  0px 1px 2px 0px rgba(0, 0, 0, 0.4);
+	background-color: transparent;
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgba(0,0,255,0.6)), to(rgba(0,0,255,0.8)));
+	background:-moz-linear-gradient(top,rgba(0,0,255,0.6),rgba(0,0,255,0.8));
+	padding: 2px 5px 2px 5px;
+	color: rgba(255,255,255,1);
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.9);
+}
+.sign a:link{color:#fff;text-decoration:none}
+.sign a:hover{color:#ccc;text-decoration:none}
+.sign a:visit{color:#fff;text-decoration:none}
+
+.msgContent {
+    margin: 7px;
+    padding: 10px;
+    border: medium none;
+    -moz-border-bottom-colors: none;
+    -moz-border-image: none;
+    -moz-border-left-colors: none;
+    -moz-border-right-colors: none;
+    -moz-border-top-colors: none;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+    -webkit-box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+    background: none repeat scroll 0 0 #ffffff;
+    text-shadow:1px 1px 2px rgba(0,0,0,0.2);
+    font-size: large;
+}
+
+.myMsg{display:block;text-align:right;width:100%;margin:2px}
+.gMsg{display:block;text-align:left;width:100%;margin:2px}
+
+.wallMsgs{
+	background-image:url(images/wall-bg.jpg);
+	background-repeat:repeat;
+	margin:0px 150px 0px 150px;
+	padding: 40px;
+	text-shadow:3px 3px 1px rgba(0,0,0,0.2);
+	box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.5);
+    -webkit-box-shadow: 0px 0px 9px rgba(0, 0, 0, 0.5);
+	border: 4px solid gold;
+}
+.wallMsg{text-align:right;font-size:x-large;}
+.wallMsg pre {margin-bottom:3px}
+.wallMsg div {text-align:right;font-size:large;color:silver;font-style:italic;
+	text-shadow:1px 1px 1px rgba(0,0,0,0.8);
+}
+
+#peopleUl {display:inline-block; margin:0 auto;width:768px;text-align:center;overflow:scroll}
+#peopleUl li {margin:2px;float:left;line-height:20px;width:50px;display:inline;border:0px;cursor:pointer}
+#peopleUl li img {width:48px;height:48px;margin:2px;display:inline-block}
+#peopleUl li div {margin-top: 2px;padding:0px;height:20px;display:inline-block}
+
+#msgViewSwitcher .ui-slider-switch { width: 7em } 

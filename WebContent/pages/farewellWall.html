@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>主页</title>
+	
+	<link href="../generic/css/basic.css" rel="stylesheet" type="text/css" />
+	<link href="../generic/ui/css/basic/si.ui.css" rel="stylesheet" type="text/css" />
+	<link href="ui/css/jquery.mobile/jquery.mobile.css" rel="stylesheet" type="text/css" />
+	<link href="ui/css/jquery.mobile/jqm-datebox.css" rel="stylesheet" type="text/css" />
+	<link href="ui/css/si.fw.css" rel="stylesheet" type="text/css" />
+	
+	<script type="text/javascript" src="../generic/js/jquery.js"></script>
+	<script type="text/javascript" src="../generic/js/jquery.pagination.js"></script>
+	<script type="text/javascript" src="../generic/js/HashMap.js"></script>
+	<script type="text/javascript" src="../generic/js/si.utils.js"></script>
+	<script type="text/javascript" src="../generic/ui/js/si.ui.js"></script>
+	<script type="text/javascript" src="ui/js/jquery.mobile.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    listMsgs();
+		    //listPeople();
+		});
+		
+		function listMsgs () {
+			$.mobile.showPageLoadingMsg();
+			$('#msgs .msgbox').remove();
+			$.get('../message.json',function(data){
+				$.each(data.extend.reverse(),function(index,msg) {
+					
+					var msgHtml='<div id=msg'+msg.id+' class="msgbox wallMsg"><pre>'+msg.content+'</pre><div> ——'+msg.sender.name+'</div></div>';
+					
+					$('#msgs').append(msgHtml);
+				});
+				
+				$.mobile.hidePageLoadingMsg();
+			});
+		}
+	</script>
+</head>
+<body>
+<div data-role="page" id="homePage">
+	<div data-role="header" data-position="fixed" data-fullscreen="false" data-theme="c">
+		<h1>告别寄语 | Farewell</h1>
+	</div>
+	<div data-role="content" class="centered">
+		<div id="msgs" class="right wallMsgs">
+		</div>
+	</div>
+</div>
+</body>
+</html>

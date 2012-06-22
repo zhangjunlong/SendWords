@@ -26,7 +26,8 @@ public class Person extends Account implements Profile {
 	@Column(length = 128)
 	private String picture;
 
-	private Date birthday;
+	@Column(length = 10)
+	private String birthday;
 
 	@ManyToOne
 	private Class attendedClasses;
@@ -73,11 +74,11 @@ public class Person extends Account implements Profile {
 		this.gender = gender;
 	}
 
-	public Date getBirthday() {
+	public String getBirthday() {
 		return birthday;
 	}
 
-	public void setBirthday(Date birthday) {
+	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
 

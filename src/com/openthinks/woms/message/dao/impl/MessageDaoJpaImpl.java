@@ -25,4 +25,10 @@ public class MessageDaoJpaImpl extends GenericJpaDaoBean<Message, Long>
 
 		return this.query(ql, uid);
 	}
+
+	@Override
+	public Collection<Message> read() throws Exception {
+		String ql = "SELECT m FROM Message m";
+		return this.readSpecifiedSection(ql, 0, 0).getResultList();
+	}
 }

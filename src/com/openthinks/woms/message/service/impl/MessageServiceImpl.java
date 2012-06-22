@@ -49,4 +49,9 @@ public class MessageServiceImpl implements MessageService {
 		messageDao.delete(msg);
 	}
 
+	@Override
+	public Collection<Message> retrieveAllMsgs() throws Exception {
+		return messageDao.read();
+	}
+
 }

@@ -8,11 +8,19 @@ import com.openthinks.woms.message.Message;
 public interface MessageDao extends GenericDao<Message, Long> {
 
 	/**
-	 * Get messages of specified userId
+	 * Read out messages of specified sender
 	 * 
 	 * @param uid
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	Collection<Message> find(long uid) throws Exception;
+
+	/**
+	 * Read out all messages
+	 * 
+	 * @return
+	 * @throws Exception 
+	 */
+	Collection<Message> read() throws Exception;
 
 }
